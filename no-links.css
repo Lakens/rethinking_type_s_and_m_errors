@@ -1,0 +1,5 @@
+.csl-entry a, .citation a {
+  pointer-events: none;
+  color: inherit;
+  text-decoration: none;
+}
