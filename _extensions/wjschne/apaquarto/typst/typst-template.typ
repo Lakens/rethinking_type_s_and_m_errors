@@ -27,7 +27,7 @@
   runninghead: none,
   margin: (x: 1in, y: 1in),
   paper: "us-letter",
-  font: ("Times", "Times New Roman"),
+  font: ("Cambria"),
   fontsize: 12pt,
   leading: 18pt,
   spacing: 18pt,

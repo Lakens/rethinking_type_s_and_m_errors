@@ -20,7 +20,7 @@ author:
         address: Den Dolech 2, 5600 MB, Eindhoven
         city: Eindhoven
   - name: Gabriela Xavier-Quintais
-    orcid: 0000-000X-XXXX-XXXX
+    orcid: 0000-0003-4896-1225
     email: fc56156@alunos.ciencias.ulisboa.pt
     affiliations:
       - name: University of Lisbon
@@ -45,24 +45,25 @@ author:
     affiliations:
       - name: University of Padova
         department: Department of Developmental Psychology and Socialisation
-abstract: "Gelman and Carlin (2014) introduced Type S (sign) and Type M (magnitude) errors to highlight the possibility that statistically significant results in published articles are misleading. While these concepts have been proposed for both when designing a study (prospective) and when evaluating results in a published paper (retroactive), we argue that these statistics do not facilitate the proper design of studies, nor the meaningful interpretation of results. The idea to remove effects of exactly 0 from hypothesis tests is conceptually fraught, and Type 1 error control for minimum effect tests provide a more coherent solution to the same problem. Type M errors are primarily a tool to warn against effect size inflation after selectively reporting significant results, but we argue that statistical indices such as the critical effect size or bias adjusted effect size are preferable approaches. We do believe that Type S and M errors can be valuable pedagogically as part of statistics education where the principles of error control are explained, and consequences of bad research practices are explained. Type S and M errors could be used in the discussion section of studies that fail to follow good research practices. Overall, we argue their use-cases are more limited than is currently recognized, and alternative solutions deserve greater attention."
-keywords: [Type M error, Type S error, Error Control, Bias Correction]
+abstract: "Gelman and Carlin (2014) introduced Type S (sign) and Type M (magnitude) errors to highlight the possibility that statistically significant results in published articles are misleading. While these concepts have been proposed to be useful both when designing a study (prospective) and when evaluating results (retroactive), we argue that these statistics do not facilitate the proper design of studies, nor the meaningful interpretation of results. Type S errors are a response to the criticism of testing against a point null of exactly zero in contexts where true zero effects are implausible. Testing against a minimum effect size, while controlling the Type 1 error rate, provides a more coherent and practically useful alternative. Type M errors warn against effect size inflation after selectively reporting significant results, but we argue that statistical indices such as the critical effect size or bias adjusted effect size are preferable approaches. We do believe that Type S and M errors can be valuable in statistics education where the principles of error control are explained, and in the discussion section of studies that fail to follow good research practices. Overall, we argue their use-cases are more limited than is currently recognized, and alternative solutions deserve greater attention."
+keywords: [Type M error, Type S error, Error Control, Hypothesis Testing, Bias Correction]
 author-note:
   disclosures:
-    conflict of interest: The authors have no conflict of interest to declare.
-bibliography: mybibfile.bib  
+    conflict-of-interest: "The authors have no conflict of interest to declare."
+    data-sharing: "A reproducible version of this manuscript is available at https://github.com/Lakens/rethinking_type_s_and_m_errors."
+    
+bibliography: references.bib  
 floatsintext: true
 format:
-#  apaquarto-docx: default
-  apaquarto-html:
-    css: no-links.css #removes clickable references
-#  apaquarto-pdf: default
+  apaquarto-typst:
+    a4paper: true
 editor_options: 
   chunk_output_type: console
 ---
 
-```{r load functions}
+```{r}
 #| include: false
+#| label: load_functions
 
 options(scipen = 99)
 library(effsize)   # for Cohen's d
@@ -79,6 +80,11 @@ library(criticalESvalue)  # for critical effect size calculation
 library(progress)
 library(forcats)
 
+#Create Session Info file for reproducibility
+sink("session_info.txt")
+sessionInfo()
+sink()
+
 # critical d value for all examples with n = 40
 m1<-0.5
 m2<-0
@@ -91,8 +97,6 @@ se <- sqrt(sd1^2 / n1 + sd2^2 / n2)
 t <- (m1 - m2) / se
 crit_res <- critical_t2s(t = t, n1 = n1, n2 = n2, se = se, var.equal = TRUE)
 critical_d <- crit_res$dc
-
-
 
 # Custom function to compare effect size correction approaches
 compare_effect_size_corrections <- function(n = 40, mu1 = 1, mu2 = 0, sd = 1, alpha = 0.05, retrodesign_d = NULL, sided = 1, exact = TRUE) {
@@ -210,11 +214,11 @@ Neyman-Pearson hypothesis testing is a widespread approach to statistical infere
 
 Before criticizing the proposed use of Type S and M errors, it is important to acknowledge several points of agreement. First, we agree with Gelman and Tuerlinckx [-@gelman2000] that it is uninteresting to test against a null hypothesis of no effect when it is highly unlikely that the true effect size is zero. However, we believe this problem should be addressed by performing a minimal effect test for superiority against a range of values that is considered practically equivalent to zero. Such tests against a non-nill null hypothesis have been suggested for more than half a century [@hodges1954, @nunnally1960; @lakens_practical_2021; @serlin_rationality_1985]. We also agree with Gelman and Carlin that performing an a priori power analysis based on estimates of a previous study or an expected effect size is not best practice, and leads to bias [@albers_whenpoweranalyses_2018]. However, we see no problem with what is currently considered best practice - performing an a-priori based on a smallest effect size of interest (SESOI) - just because the true effect size might be smaller than the SESOI. Trivially small effect sizes are scientifically uninteresting, and researchers should not be interested in detecting effects that are too small to matter [@lakens_sample_2022].
 
-Third, we agree that publication bias is a systemic problem in the social sciences, which leads to inflated effect sizes in the scientific literature. However, we consider Type M errors less useful to deal with this problem than reporting the critical effect size [e.g., @perugini_benefits_2025]. Finally, we recognize that it is valuable to retrospectively evaluate how informative studies in a literature are, especially in fields where good research practices are uncommon. However, we believe a sensitivity power analysis combined with bias correction methods such as p uniform [@aert_correcting_2018] or a maximum likelihood estimate for a truncated distribution [@anderson_addressing_2017; @taylor_bias_1996] are more insightful. Finally, the last two authors have co-authored scientific articles promoting Type S and M errors [@bertoldo_designing_2022; @altoe_enhancing_2020], and co-created the R package PRDA that computes Type S and M errors for different designs [@callegher_prda_2021]. They were invited to co-author this article to guarantee fair and nuanced arguments by incorporating internal criticism into this project [@lakens_pandemic_2020].
+Third, we agree that publication bias is a systemic problem in the social sciences, which leads to inflated effect sizes in the scientific literature. In situations where no assumed plausible effect size under the alternative hypothesis is available, reporting the critical effect size [e.g., @perugini_benefits_2025] may offer a more informative perspective than computing a Type M error, which relies on such an assumption. Finally, we recognize that it is valuable to retrospectively evaluate how informative studies in a literature are, especially in fields where good research practices are uncommon. However, we believe a sensitivity power analysis combined with bias correction methods such as p uniform [@aert_correcting_2018] or a maximum likelihood estimate for a truncated distribution [@anderson_addressing_2017; @taylor_bias_1996] are more insightful. Finally, the last two authors have co-authored scientific articles promoting Type S and M errors [@bertoldo_designing_2022; @altoe_enhancing_2020], and co-created the R package PRDA that computes Type S and M errors for different designs [@callegher_prda_2021]. They were invited to co-author this article to guarantee fair and nuanced arguments by incorporating internal criticism into this project [@lakens_pandemic_2020]. The last two authors found the discussions that shaped the manuscript intellectually rewarding, and the discussions confirmed the view—also expressed in the paper—that Type S and M errors, though not without limitations, can serve as useful concepts to foster critical reflection and statistical awareness. Like many tools in scientific practice, their usefulness does not lie solely in their technical properties, but in researchers’ ability to understand their logic, reflect on their limitations, and apply them thoughtfully.
 
-### **Type 1, Type 2, Type 3, and Type S errors**
+## **Type 1, Type 2, Type 3, and Type S errors**
 
-Type 1 errors occur when the null hypothesis is true, but a statistically significant result is observed. The null hypothesis in a two-sided test is that the population effect size is 0. The alternative hypothesis is that there is an effect - either in the positive or negative direction. After observing a statistically significant result the correct claim is that the null hypothesis can be rejected, and we can act - with an error rate of α - that there is a non-zero effect. Because no directional claims are made in a correctly performed two-sided null hypothesis test, sign errors are impossible in two-sided hypothesis tests. Sign errors only exist in directional tests based on distributions that have positive and negative values. This means Type S errors do not exist for distributions based on squared deviations or absolute values, such as when an omnibus F-test or Chi-squared test is performed to test if any difference exists.
+Type 1 errors occur when the null hypothesis is true, but a statistically significant result is observed. The null hypothesis in a two-sided test is that the population effect size is 0. The alternative hypothesis is that there is an effect - either in the positive or negative direction. After observing a statistically significant result the correct claim is that the null hypothesis can be rejected, and we can act - with an error rate of α - that there is a non-zero effect. Because no directional claims are made in a correctly performed two-sided null hypothesis test, sign errors are impossible in two-sided hypothesis tests. There are other tests where sign errors can't occur, such as an omnibus *F*-test used to detect differences between groups, as the *F*-distribution is based on squared deviations and only has positive values.
 
 Researchers sometimes incorrectly make a directional claim after a two-sided test, which can lead to what Kaiser [-@kaiser_directional_1960] has referred to as a Type 3 error. Type 3 errors occur when H0 is false, a statistically significant effect is observed in the opposite direction of the true effect, and researchers make a directional claim. The correct way to make directional claims is to perform a one-sided test. If researchers want to make a claim about an effect in the positive or negative direction, they should follow Kaiser’s [-@kaiser_directional_1960] proposal to perform two one-sided null-hypothesis tests, one in the positive direction, and one in the negative direction, each at α/2 [see also @leventhal_directional_1996]. 
 
@@ -226,7 +230,7 @@ When two one-sided tests are performed and the null is never true, the Type S er
 
 This conditional probability is similar to the false discovery rate, which is the expected proportion of false positives among all positive findings. Just as Type 1 errors only occur when the null hypothesis is true, the false discovery rate only occurs when the null hypothesis is true. But once again, removing the value of 0, which itself has 0 probability, does not change the long-run false discovery rate. If researchers believe the null is true, a Type 1 error (a rejection of positive effects, when there is a positive effect) will be observed with a probability of 0.025, and a correct rejection (a rejection of negative effects, when there is a positive effect) will occur with a probability of 0.025. From all positive findings (0.025 false positives + 0.025 true positives = 0.05 positive test results) 50% are false positives. Therefore, the false discovery rate is 50% in the two one-sided testing procedure. The conditional Type S probability is identical to the false discovery rate, with the conceptual difference that it excludes the value of 0 from the hypothesized values.
 
-### **Should effects of 0 be considered impossible?**
+## **Should effects of 0 be considered impossible?**
 
 Note that it is somewhat peculiar to completely exclude the possibility that effect sizes of 0 exist in a hypothesis test. After all, one could just as easily argue that in continuous data, no true effect size is exactly 0.5, but no one would propose to remove 0.5 from the space of hypothesized values. Furthermore, as Type S errors do not exist for omnibus F-tests, Chi-squared tests, and other tests based on distributions that are bounded below by zero, the idea that an effect is never 0 implies there would never be any need to perform an omnibus F-test or Chi-squared test.
 
@@ -236,7 +240,7 @@ It seems difficult to justify why one would believe the null is never true, whil
 
 Instead of performing a test that rejects effects effect sizes of 0, researchers can specify a smallest effect size of interest, and test whether they can statistically reject all effects that are deemed too small to matter. Such a minimum effect tests resolve most of the problems researchers have with null-hypothesis significance testing [@lakens_practical_2021], including the concern that the null is never true. If researchers do not believe it is scientifically interesting to reject effects of exactly 0 they can test whether effects in a range around 0 can be rejected. For example, Ferguson and Heene [-@ferguson_providing_2021] empirically show that correlational effects in aggression research are unlikely to ever be exactly 0, and established a correlation of *r* = 0.1 are a lower bound for hypothesis tests in this research field. A directional minimum effect test against *r* ≤ 0.1 is rejected if the lower bound of the 90% confidence interval around the observed correlation is larger than 0.1 [@lakens_equivalence_2018]. Minimum effect tests are a better solution than arbitrarily excluding a point value of 0 from effects that are possible. If minimum effect tests are adopted, the idea of a Type S error is no longer needed, as it is equivalent to a Type 1 error for one-sided tests against a non-nill null hypothesis.
 
-### **Should researchers report Type S errors in scientific articles?**
+## **Should researchers report Type S errors in scientific articles?**
 
 Whereas Gelman and Tuerlinckx [-@gelman2000] only discuss the relevance of Type S errors relative to Type 1 errors, Gelman and Carlin [-@gelman2014] take an additional step and suggest that it is useful to compute and report Type S error rates for specific studies. To compute a Type S error researchers need to specify what they believe is the true effect size. Gelman and Carlin suggest using a literature review or other available data. They provide an example where the original author observed an effect of 8 percentage points. Gelman and Carlin do not believe this finding can be correct, and retrospectively compute the Type S error based on effect sizes they believe are more likely to be true: 0.1, 0.3, and 1 percentage point. When they compute the Type S error for the much smaller effects they deem plausible, the probability of a sign error can be quite large as long as the statistical power is low.
 
@@ -245,20 +249,39 @@ Is it useful to compute and report Type S errors in this way? One problem with r
 To conclude this section, we have strong conceptual issues with Type S errors (removing 0 from the range of possible distributions is difficult to justify, and the long run probability of Type S errors is identical to the well-established Type 1 error rate and false discovery rate), as well as practical concerns (the test can too easily lead to a foregone conclusion). Type S errors mainly point out how uninformative studies with low statistical power are, and a null hypothesis test might not be an interesting question to ask.If researchers want to address these concerns, a better solution is to specify a non-null nill hypothesis (e.g., considering all effects between -0.1 and 0.1 as practically equivalent to 0) and perform an a-priori power analysis for the smallest effect size of interest. After the data is in, the Type S error is at most 2.5%, as is the Type 1 error. Researchers should always make a claim while acknowledging the maximum possible Type 1 error rate (e.g., 2.5% in an one-sided test with an alpha level of 0.025) and any quantification of how much lower the Type S error might be, depending on weakly informed guesses of the true effect size, comes with great uncertainty.
 
 Gelman and Carlin [-@gelman2014] argue that a retrospective design analysis can reveal that 'a study was too small to be informative'. But this seems misguided. If a significant effect was observed in a well-performed test we can reject the null with a maximum Type 1 error rate of 2.5%, which is small enough to take the result seriously. The study might have had very low power to detect an effect, but if it happened to detect an effect with the desired maximum Type 1 error rate, the fact that the study had a low probability to yield an informative outcome a-priori no longer matters. The observed effect size might be measured inaccurately, and inflated due to selection bias (see Type M errors below) but a researcher can claim that there is a very small probability that random noise is mistaken as a true effect.
+```{r}
+#| include: false
+#| label: 33_power_calc
 
-The Type S error rate will only raise a red flag for studies with incredibly low statistical power. When the Type S error is high, the design is uninformative, but when the Type S error is low, the design is often still uninformative. The Type S error drops to negligible levels when the statistical power of the test is still unacceptably low. For example, Simonsohn [-@simonsohn_small_2015] considers a test with less than 33% power severely underpowered, but with 33% power the probability that a significant result is in the wrong direction is only 0.1%. A sensitivity power analysis provides more insight into how informative a test is, and is therefore a better approach than a retrospective design analysis.
+# For 33% power, n = 40 per group, the effect size has to be 0.3439651
+pwr.t.test(n = 40, power = 0.33, type = "two.sample", alternative = "two.sided")
 
-### **Effect size inflation and Type M errors**
+res_33_power <- PRDA::retrospective(
+    effect_size = 0.3439651, 
+    sample_n1 = 40, 
+    sample_n2 = 40, 
+    test_method = "two_sample", 
+    alternative = "two_sided",
+    B = 1000000
+  )
+
+```
+
+The Type S error rate will only raise a red flag for studies with incredibly low statistical power. When the Type S error is high, the design is uninformative, but when the Type S error is low, the design is often still uninformative. The Type S error drops to negligible levels when the statistical power of the test is still unacceptably low. For example, Simonsohn [-@simonsohn_small_2015] considers a test with less than 33% power severely underpowered, but with 33% power the probability that a significant result is in the wrong direction is only `r 100*round(res_33_power$retrospective_res$typeS, 3)`%. A sensitivity power analysis provides more insight into how informative a test is, and is therefore a better approach than a retrospective design analysis.
+
+## **Effect size inflation and Type M errors**
 
 Lane and Dunlap [-@lane_estimating_1978] examined the impact of selection bias on the inflation of effect size estimates. When only statistically significant results are shared, the effect size estimate based on these studies is inflated, as smaller non-significant effects are removed from the scientific literature. In general, how much effect sizes are inflated in the presence of selection bias is a function of the power of the test. The lower the statistical power - for example because population effect sizes or sample sizes are smaller - the more significant effect sizes will be inflated. @fig-effectsize-distribution shows the expected effect size distribution for an alternative hypothesis with a true effect size of Cohen's *d* of 0.4. With a sample size of 40 participants in each group, a two-sided independent *t*-test will yield a statistically significant result if the observed effect size is larger than *d* = `r round(critical_d, 3)`. If there is extreme selection bias for statistically significant results the scientific literature would consist of effect sizes to the right of *d* = `r round(critical_d, 3)`. Instead of having access to the full distribution of expected effects, the literature will represent a truncated distribution, where all values smaller than `r round(critical_d, 3)` are removed from the distribution of expected effect sizes.
 
-```{r effectsize-distribution}
+```{r}
 #| label: fig-effectsize-distribution
-#| fig-cap: "Expected effect size distribution under the alternative hypothesis, assuming a true effect size of 0.5 (dashed central line). With a sample size of 20 participants per group, a two-sided independent t-test yields a statistically significant result when the observed effect size exceeds d = 0.64. The shaded area represents the subset of effect sizes published under selection bias."
+#| fig-cap: "Expected effect size distribution under the alternative hypothesis, assuming a true effect size of 0.5 (dashed central line). With a sample size of 40 participants per group, a two-sided independent t-test yields a statistically significant result when the observed effect size exceeds d = 0.64. The shaded area represents the subset of effect sizes published under selection bias."
 #| warning: false
 #| message: false
 #| echo: false
 #| fig-align: center
+#| fig-width: 8
+#| fig-height: 5
 
 
 ## Figure illustrating critical effect size
@@ -325,7 +348,7 @@ plot(-10, xlim = c(low_x, high_x), ylim = c(0, y_max),
      xlab = expression("Cohen's " * italic(d)),
      ylab = "",
      main = bquote(
-       paste("Distribution of effects sizes, N = 20, ",
+       paste("Distribution of effects sizes, N = 40, ",
              italic(d), " = ", .(d), ", ",
              d[crit], " = ", .(round(crit_d, 2)))
      ),
@@ -352,7 +375,7 @@ abline(v=d, lty = 2)
 
 This type of bias has been discussed extensively in the literature [@anderson_addressing_2017; @begg_operating_1994; @hedges_estimation_1984]. Both Hedges [@hedges_estimation_1984] as Taylor and Muller [@taylor_bias_1996] have developed a statistical model that computes bias-adjusted effect size estimates when estimators are selected from a ‘censored’ or ‘truncated’ distribution. This method creates a model of what the full distribution would have looked like, and estimates the effect size if there was no selection bias. Anderson, Kelley, and Maxwell [-@anderson_addressing_2017] apply this method to compute an adjusted estimate of the noncentrality parameter, and use it to show how a-priori power analysis can be adjusted for selection bias.
 
-Gelman and Carlin [-@gelman2014] propose another approach to increase awareness of effect size inflation due to selection bias. They compute a ratio between the average absolute effect size estimates from statistically significant effects, and the assumed true effect size, which they refer to as a Type M (magnitude) error. Because Type M errors do not quantify error rates (i.e., the probability of an incorrect claim) but the bias in an estimator, we prefer Gelman and Carlin’s alternative term for Type M errors: the ‘exaggeration ratio’. The exaggeration ratio is a function of the statistical power of a test. When power is close to 100% all tests of true effects will be significant, no effect sizes are removed due to selection bias, and the exaggeration ratio will be 1, indicating that the design will in the long run yield unbiased effect size estimates. As power is practically always less than 100%, the exaggeration ratio will typically be larger than 1, indicating that effect sizes selected for statistical significance will be inflated. Altoè et al. [-@altoe_enhancing_2020] note that when power reaches at least 80% the average overestimation of the effect size tends to be just above 10%, which they consider practically negligible. As such, one may see the exaggeration ratio as just another way to interpret the same information conveyed by statistical power, with a focus shifted more on effect size estimation than on the consideration of the Type 2 error rate.
+Gelman and Carlin [-@gelman2014] propose another approach to increase awareness of effect size inflation due to selection bias. They compute a ratio between the average absolute effect size estimates from statistically significant effects, and the assumed true effect size, which they refer to as a Type M (magnitude) error. Because Type M errors do not quantify error rates (i.e., the probability of an incorrect claim) but the bias in an estimator, we prefer Gelman and Carlin’s alternative term for Type M errors: the ‘exaggeration ratio’. The exaggeration ratio is a function of the statistical power of a test. When power is close to 100% all tests of true effects will be significant, no effect sizes are removed due to selection bias, and the exaggeration ratio will be 1, indicating that the design will in the long run yield unbiased effect size estimates. As power is practically always less than 100%, the exaggeration ratio will typically be larger than 1, indicating that effect sizes selected for statistical significance will be inflated. Altoè et al. [-@altoe_enhancing_2020] note that when power reaches at least 80% the average overestimation of the effect size tends to be just above 10%, which they consider practically negligible. As such, one may see the exaggeration ratio as a complementary perspective on the information conveyed by statistical power, shifting the focus from hypothesis testing to effect size estimation.
 
 The exaggeration ratio is computed based on properties of the design of the study, and the assumed true effect size. The design (e.g., the sample size, type of test, and the alpha level) determine the critical effect size, or the smallest effect size that can be statistically significant. The assumed true effect size determines how inflated the average effect size in statistically significant results will be on average, with the smaller the assumed effect size, the larger the exaggeration ratio. The exaggeration ratio [@gelman2014] is not intended to correct individual effect sizes. If the average absolute unbiased effect size estimate is 0.5, and the average biased effect size estimate is 1, the estimated effect is on average 2 times larger than the true effect size. But this exaggeration ratio of 2 applies to the average effect size estimate, and not to any individual effect size. It is not correct to simply divide each observed effect size estimate by the exaggeration ratio and treat it as a bias-adjusted effect size estimate.
 
@@ -362,21 +385,23 @@ There are statistical approaches that adjust effect size estimates for selection
 
 In addition to bias-corrected effect size estimates, researchers can also report the critical effect size [@perugini_benefits_2025]. The critical effect size is the smallest effect size that could reach statistical significance. Just as the Type M error, it is computed based on the study design, and not the study results. The critical effect size similarly increases awareness about how selection bias inflates effect size estimated from studies selected for statistical significance, but it also warns against interpreting non-significant results as the absence of an effect by pointing out the range of non-zero effect sizes that would never yield a statistically significant result. Critical effect sizes are also worth reporting in studies with very high statistical power, where the Type M error would not be reported because it is negligible. In studies with extremely high power, the critical effect size will make it clear that even trivially small effects will be statistically significant. This can make researchers reflect on which effects are large enough to be meaningful.
 
-### **Simulating effect size inflation and correction methods**
+## **Simulating effect size inflation and correction methods**
 
 We simulated 10.000 independent *t*-tests with a true effect size of *d* = 0.5, 40 observations per group, equal variances, and an alpha level of 0.05. We also computed adjusted effect size estimates using *p*-uniform and the bias and uncertainty-corrected sample size procedure (BUCSS). Note that the BUCSS R package returns a non-centrality parameter, which was transformed into a bias-adjusted effect size estimate. Van Aert et al. [-@aert_publication_2019, p. 16] note how the likelihood-based procedure implemented by Anderson and colleagues [-@anderson_addressing_2017] is 'based on similar methodology' as p-uniform. The bias and uncertainty-corrected sample size procedure (BUCSS) by Anderson and colleagues does not return an adjusted value if the effect size estimate is negative. P-uniform does return negative estimates. When applying p-uniform in its intended context of meta-analyses, the recommendation is to replace negative estimates by zero [@aert_publication_2019]. This solution is less ideal when analyzing single studies because too many estimates will be set to 0, which negatively biases the estimate. Instead, we follow Anderson and colleagues [-@anderson_addressing_2017] and remove negative estimates. Although we do not think this has been pointed out before in the literature, the corrections based on BUCSS and p-uniform are practically identical.
 
 As noted above, the exaggeration ratio should not be used to adjust individual effect sizes, and was not developed for such a use. The distribution in the top-right pane of Figure 2 shows why this approach fails. Large observed effects are adjusted downward a lot, but smaller observed effect sizes are adjusted downward less, and not sufficiently. Where the average inflation can be used to educate researchers about the risk of inflation, it can't be used to adjust individual effect sizes for selection bias.
 
-@fig-effectsize-distribution shows the effect size distribution of observed effect sizes when only statistically significant results are available (top-left pane). The total unbiased dataset would lead to a symmetrical distribution of observed effect sizes around 0.5. Given the sample size, only effects larger than *d* = `r round(critical_d, 3)` will be statistically significant, and all effects smaller than *d* = `r round(critical_d, 3)` are missing from the truncated distribution. The BUCSS and *p*-uniform methods lead to practically identical distributions of adjusted effect size estimates (bottom panes). The adjusted effect size estimates do not perfectly match the unbiased distribution, but provide estimates that are on average much closer to the true effect size. This demonstrated that it is more useful to report bias-adjusted effect size estimates using for example the p-uniform technique, than to report the Type M error - or even worse, misuse the exaggeration ratio to adjust observed effect sizes.
+@fig-simulation-distributions shows the effect size distribution of observed effect sizes when only statistically significant results are available (top-left pane). The total unbiased dataset would lead to a symmetrical distribution of observed effect sizes around 0.5. Given the sample size, only effects larger than *d* = `r round(critical_d, 3)` will be statistically significant, and all effects smaller than *d* = `r round(critical_d, 3)` are missing from the truncated distribution. The BUCSS and *p*-uniform methods lead to practically identical distributions of adjusted effect size estimates (bottom panes). The adjusted effect size estimates do not perfectly match the unbiased distribution, but provide estimates that are on average much closer to the true effect size. This demonstrated that it is more useful to report bias-adjusted effect size estimates using for example the p-uniform technique, than to report the Type M error - or even worse, misuse the exaggeration ratio to adjust observed effect sizes.
 
-```{r simulation-distributions}
+```{r}
 #| label: fig-simulation-distributions
 #| fig-cap: "Comparison of the observed and bias-corrected effect size yielded by BUCSS, p-uniform, and the exaggeration ratio, and the statistical power of the test."
 #| warning: false
 #| message: false
 #| echo: false
 #| fig-align: center
+#| fig-width: 8
+#| fig-height: 6
 
 # Parameters
 n_sim <- 10000
@@ -440,9 +465,7 @@ significant_results <- final_sim_table %>%
 #   theme(
 #     panel.grid.major = element_blank(),
 #     panel.grid.minor = element_blank(),
-#     legend.position = "bottom",
-#     text = element_text(family = "Segoe UI")
-#   ) +
+#     legend.position = "bottom") +
 #   xlim(-0.5, 1.5) +
 #   ylim(0, 3) +
 #   labs(
@@ -490,9 +513,7 @@ ggplot(long_data, aes(x = value, fill = variable_label, color = variable_label))
   theme(
     panel.grid.major = element_blank(),
     panel.grid.minor = element_blank(),
-    legend.position = "bottom",
-    text = element_text(family = "Segoe UI")
-  ) +
+    legend.position = "bottom") +
   xlim(-0.5, 1.5) +
   ylim(0, 3) +
   labs(
@@ -538,9 +559,9 @@ puniform_NA[puniform_NA < 0] <- NA
 
 ```
 
-@fig-simulation-distributions plots the observed Cohen's *d* and bias-corrected Cohen's *d* for independent t-tests with true effects from *d* = 0 to d = 1, 20 participants per group, and an alpha level of 0.05, with observed effect sizes on the y-axis, and corrected effect size estimates on the x-axis. The power of the test (which is a function of the effect size) is also plotted, and we see that when power is high (when Cohen's *d* is large, e.g., from d = 0.75 onward) the observed Cohen's *d* is practically equal to the corrected Cohen's *d*. This is because there is very little selection bias, as most tests yield statistically significant results, and the observed effect size is not inflated. As the observed effect size becomes smaller, power is lower, selection bias is larger, and the corrected effect sizes become much smaller than the observed effect sizes for the BUCSS and *p*-uniform methods. We again see that these two methods yield basically the same corrected effect sizes. In this testing scenario the critical effect size is *d* = `r round(critical_d, 3)`, which means effects smaller than this value will not yield a statistically significant result, and the correction methods only start to estimate positive effects from observed effect sizes of *d* = 0.52, as can be seen in the plot. Again, the yellow line visualizing a correction based on the exaggeration ratio illustrates why it should not be used to correct individual effects.
+@fig-correction-comparison plots the observed Cohen's *d* and bias-corrected Cohen's *d* for independent *t*-tests with true effects from *d* = 0 to *d* = 1, 40 participants per group, and an alpha level of 0.05, with observed effect sizes on the y-axis, and corrected effect size estimates on the x-axis. The power of the test (which is a function of the effect size) is also plotted, and we see that when power is high (when Cohen's *d* is large, e.g., from *d* = 0.75 onward) the observed Cohen's *d* is practically equal to the corrected Cohen's *d*. This is because there is very little selection bias, as most tests yield statistically significant results, and the observed effect size is not inflated. 
 
-```{r simulation-2}
+```{r}
 #| label: fig-correction-comparison
 #| fig-cap: "Comparison of the corrected effect sizes for observed Cohen's d effect sizes from 0 to 1 using BUCSS, p-uniform, and Type M errors."
 #| warning: false
@@ -618,17 +639,30 @@ ggplot(plot_data, aes(x = observed_d, y = Adjusted_d, color = Method, linetype =
   theme_minimal(base_size = 14) +
   labs(color = NULL, fill = NULL, linetype = NULL) +
   theme(
-    legend.position = "bottom",
-    text = element_text(family = "Segoe UI")
-  )
+    legend.position = "bottom")
 
 ```
+
+As the observed effect size becomes smaller, power is lower, selection bias is larger, and the corrected effect sizes become much smaller than the observed effect sizes for the BUCSS and *p*-uniform methods. We again see that these two methods yield basically the same corrected effect sizes. In this testing scenario the critical effect size is *d* = `r round(critical_d, 3)`, which means effects smaller than this value will not yield a statistically significant result, and the correction methods only start to estimate positive effects from observed effect sizes of *d* = 0.52, as can be seen in the plot. Again, the yellow line visualizing a correction based on the exaggeration ratio illustrates why it should not be used to correct individual effects.
 
 The exaggeration ratio assumes extreme selection bias where only statistically significant effects are available, which might be a reasonable expectation in some literatures [e.g., @scheel_excess_2021], while there are more non-significant results published in other other literatures [e.g., @mesquida_publication_2023a]. The only way to ensure unbiased effect size estimates is for researchers to report all results that are obtained, regardless of the significance level of test results. This can be achieved by reporting all studies in a public registry, or by publishing research as a Registered Report.
 
 ### **The Use of Type S and M Error in an “Imperfect” Science**
+```{r}
+#| include: false
+#| label: imperfect_science_calc
 
-Although Type S and M errors might not be particularly informative to report in a result section, given the more informative alternatives (i.e., minimum effect tests and bias-corrected effect size estimates), they may still be valuable as a tool to reflect on the problems that emerge when studies are underpowered and/or selectively reported. Due to resource constraints, researchers may sometimes perform studies with very low power for the main effect of interest. Consider a PhD student who can at most collect 20 participants per group for an independent two-sided *t*-test, and expects a true effect size of *d* = 0.4. An a priori power analysis reveals that the statistical power is a mere 23%. With such a high probability of uninformative results, one might argue that the study should not be performed. However, the study is part of a grant proposal that funds the research of the PhD student, and their supervisor wants to complete the promised data collection, regardless of the low statistical power. Under these suboptimal conditions the student could reflect on the Type S and M error rates in a preregistration. They could point out that the effect size estimate has high uncertainty, that there is a probability of 0.5% that a statistically significant effect is in the wrong direction. Perhaps more informatively, the PhD includes the Type M error, warning readers that statistically significant effects will on average be inflated with a ratio of 2.06, meaning that any significant effect would be overestimated by 100% on average. This should make researchers aware of the fact that due to the underpowered nature of the study, the effect size estimate can not be taken at face value, especially if the effect size will only be interpreted if it is statistically significant.
+pwr_res <- pwr.t.test(n = 20, d = 0.4, type = "two.sample", alternative = "two.sided")
+
+res_imperfect_science <- PRDA::prospective(
+  effect_size = 0.4,
+  power = 0.23,
+  B = 100000,
+  test_method = "two_sample")
+
+```
+
+Although Type S and M errors might not be particularly informative to report in a result section, given the more informative alternatives (i.e., minimum effect tests and bias-corrected effect size estimates), they may still be valuable as a tool to reflect on the problems that emerge when studies are underpowered and/or selectively reported. Due to resource constraints, researchers may sometimes perform studies with very low power for the main effect of interest. Consider a PhD student who can at most collect 20 participants per group for an independent two-sided *t*-test, and expects a true effect size of *d* = 0.4. An a priori power analysis reveals that the statistical power is a mere `r 100*round(pwr_res$power, 2)`%. With such a high probability of uninformative results, one might argue that the study should not be performed. However, the study is part of a grant proposal that funds the research of the PhD student, and their supervisor wants to complete the promised data collection, regardless of the low statistical power. Under these suboptimal conditions the student could reflect on the Type S and M error rates in a preregistration. They could point out that the effect size estimate has high uncertainty, that there is a probability of `r 100*round(res_imperfect_science$prospective_res$typeS, 3)`%. that a statistically significant effect is in the wrong direction. Perhaps more informatively, the PhD includes the Type M error, warning readers that statistically significant effects will on average be inflated with a ratio of `r round(res_imperfect_science$prospective_res$typeM, 2)`, meaning that on average any significant effect would be overestimated by 100%. This should make researchers aware of the fact that due to the underpowered nature of the study, the effect size estimate can not be taken at face value, especially if the effect size will only be interpreted if it is statistically significant.
 
 A second use-case of a Type S and M error is in highly exploratory research where researchers opportunistically search for statistically significant effects without correcting for multiple comparisons. In such a scenario true effects might be small for some tests, researchers often selectively focus on statistically significant effects, and in the absence of strong theoretical predictions a skeptical peer might argue true effects might be small. Type S and M errors might be a way to communicate that exploratory analyses can be uninformative, and an exploratory search for significant effects will on average lead to exaggerated effect size estimates. This might help researchers realize that they should not make claims based on exploratory analyses as error rates can be high. Instead, results from exploratory analyses should be treated as hypotheses that need to be severely tested in follow-up studies [@ditroilo_exploratory_2025].
 
@@ -640,8 +674,12 @@ The idea of a Type S error can also help students grasp why it is incorrect to m
 
 The concept of a Type M error—or exaggeration ratio—is especially helpful when introducing students to the consequences of publication bias and selective reporting. Even without delving into the mathematical derivation, Figure 1 clearly shows how filtering for significance results in inflated effect size estimates. This can serve as a foundation for teaching the idea that significant effects from underpowered studies are not only uncertain, but often systematically overestimated. The same idea can be taught through the concept of a critical effect size [@perugini_benefits_2025] by illustrating how low power limits which effect sizes can be reliably distinguished from random noise. In follow-up courses, teachers could introduce the exaggeration ratio as a function of the statistical power of the test, and explain the limitations of underpowered studies. The Type M error can also be used to explain the difference between the inferential goals of hypothesis testing and estimation, revealing that tests that reject the null hypothesis inform us about the presence of an effect, but do not provide accurate effect size estimates. In more advanced courses, instructors may introduce tools for bias detection (e.g., funnel plots, p-curve analysis) or methods to compute bias-adjusted effect size estimates [@stanley_limitations_2017; @simonsohn_p-curve_2014; @vanassen_metaanalysis_2015; @bartos_zcurve_2020].
 
-When taught properly, the concepts of Type S and M errors can help to bridge the gap between statistical theory and the realities of scientific practice. They offer a narrative that aligns with the goals of open and rigorous science: understanding the risks of false directional claims, exploratory tests without error control, underpowered studies, and bias in the published literature, and emphasizing the value of reporting all research findings, for example through study registries or Registered Reports. Teaching students to think about the inferential claims they can—and cannot— make is important to improve their statistical literacy, and will bolster their critical thinking skills when they read claims in the scientific literature. 
+When taught properly, the concepts of Type S and M errors can help to bridge the gap between statistical theory and the realities of scientific practice. They offer a narrative that aligns with the goals of open and rigorous science: understanding the risks of false directional claims, exploratory tests without error control, underpowered studies, and bias in the published literature, and emphasizing the value of reporting all research findings, for example through study registries or Registered Reports. Teaching students to think about the inferential claims they can—and cannot— make is important to improve their statistical literacy, and will bolster their critical thinking skills when they read claims in the scientific literature.
 
-### **Conclusion**
+## **Conclusion**
 
 Gelman and Carlin [-@gelman2014] propose to compute Type S and M errors for planned or performed statistical tests (see also Altoè et al., 2020). However, both for conceptual and practical reasons we see limited value in quantifying Type S errors and the exaggeration ratio (or Type M error) for individual studies. We share the general concern that researchers should design informative studies, and be cautious when interpreting the results from underpowered studies, especially when combined with selection bias. Type S and Type M errors can be used to create awareness of the limitations of studies where researchers did not follow best practices, and they can play a role in statistics education to improve students' understanding of how uninformative underpowered studies are. However, we believe there are more useful alternative statistical approaches to address these concerns. Instead of reporting Type S error rates, researchers should perform tests against a range of values considered theoretically or practically equivalent to 0. Instead of reporting Type M errors, researchers should report bias-corrected effect size estimates provided by methods such as p uniform, and report the critical effect size.
+
+\newpage
+
+# References
