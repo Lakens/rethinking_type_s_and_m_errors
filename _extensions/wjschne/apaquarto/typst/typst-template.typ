@@ -27,7 +27,7 @@
   runninghead: none,
   margin: (x: 1in, y: 1in),
   paper: "us-letter",
-  font: ("Cambria"),
+  font: ("Times", "Times New Roman"),
   fontsize: 12pt,
   leading: 18pt,
   spacing: 18pt,
@@ -83,6 +83,7 @@
   )
   
   show link: set text(blue)
+  show "al.'s": "al.\u{2019}s"
 
   show quote: set pad(x: 0.5in)
   show quote: set par(leading: leading)
@@ -115,25 +116,22 @@
   ]]
   
     set heading(numbering: "1.1")
-      
+    
+    show heading: set text(size: fontsize)
+
 
  // Redefine headings up to level 5 
   show heading.where(
     level: 1
   ): it => block(width: 100%, below: leading, above: leading)[
     #set align(center)
-    #set text(size: fontsize)
     #if(numbersections and it.outlined and numberdepth > 0 and counter(heading).get().at(0) > 0) [#counter(heading).display()] #it.body
   ]
-  
-
-  
   
   show heading.where(
     level: 2
   ): it => block(width: 100%, below: leading, above: leading)[
     #set align(left)
-    #set text(size: fontsize)
     #if(numbersections and it.outlined and numberdepth > 1 and counter(heading).get().at(0) > 0) [#counter(heading).display()] #it.body
   ]
   
@@ -141,14 +139,13 @@
     level: 3
   ): it => block(width: 100%, below: leading, above: leading)[
     #set align(left)
-    #set text(size: fontsize, style: "italic")
+    #set text(style: "italic")
     #if(numbersections and it.outlined and numberdepth > 2 and counter(heading).get().at(0) > 0) [#counter(heading).display()] #it.body
   ]
 
   show heading.where(
     level: 4
   ): it => text(
-    size: 1em,
     weight: "bold",
     it.body
   )
@@ -156,7 +153,6 @@
   show heading.where(
     level: 5
   ): it => text(
-    size: 1em,
     weight: "bold",
     style: "italic",
     it.body
