@@ -44,7 +44,7 @@ author:
   - name: Enrico Toffalini
     orcid: 0000-0002-1404-5133
     email: enrico.toffalini@unipd.it
-    roles:
+    roles: writing, editing
       -
     affiliations:
       - name: University of Padova
