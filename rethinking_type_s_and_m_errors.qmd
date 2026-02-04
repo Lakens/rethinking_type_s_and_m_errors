@@ -6,6 +6,8 @@ author:
     corresponding: true
     orcid: 0000-0002-8393-5316
     email: D.Lakens@tue.nl
+    roles:
+      - 
     affiliations:
       - name: Eindhoven University of Technology
         department: Industrial Engineering and Innovation Sciences
@@ -14,6 +16,8 @@ author:
   - name: Cristian Mesquida
     orcid: 0000-0002-1542-8355
     email: c.mesquida.caldentey@tue.nl
+    roles:
+      -
     affiliations:
       - name: Eindhoven University of Technology
         department: Industrial Engineering and Innovation Sciences
@@ -22,12 +26,16 @@ author:
   - name: Gabriela Xavier-Quintais
     orcid: 0000-0003-4896-1225
     email: fc56156@alunos.ciencias.ulisboa.pt
+    roles:
+      -
     affiliations:
       - name: University of Lisbon
         department: Faculty of Sciences
   - name: Sajedeh Rasti
     orcid: 0009-0007-3416-7692
     email: S.Rasti@tue.nl
+    roles:
+      - editing
     affiliations:
       - name: Eindhoven University of Technology
         department: Industrial Engineering and Innovation Sciences
@@ -36,12 +44,16 @@ author:
   - name: Enrico Toffalini
     orcid: 0000-0002-1404-5133
     email: enrico.toffalini@unipd.it
+    roles:
+      -
     affiliations:
       - name: University of Padova
         department: Department of General Psychology
   - name: Gianmarco Altoè
     orcid: 0000-0003-1154-9528
     email: gianmarco.altoe@unipd.it
+    roles:
+      -
     affiliations:
       - name: University of Padova
         department: Department of Developmental Psychology and Socialisation
@@ -214,7 +226,7 @@ Neyman-Pearson hypothesis testing is a widespread approach to statistical infere
 
 Before criticizing the proposed use of Type S and M errors, it is important to acknowledge several points of agreement. First, we agree with Gelman and Tuerlinckx [-@gelman2000] that it is uninteresting to test against a null hypothesis of no effect when it is highly unlikely that the true effect size is zero. However, we believe this problem should be addressed by performing a minimal effect test for superiority against a range of values that is considered practically equivalent to zero. Such tests against a non-nill null hypothesis have been suggested for more than half a century [@hodges1954; @nunnally1960; @lakens_practical_2021; @serlin_rationality_1985]. We also agree with Gelman and Carlin that performing an a priori power analysis based on estimates of a previous study or an expected effect size is not best practice, and leads to bias [@albers_whenpoweranalyses_2018]. However, we see no problem with what is currently considered best practice - performing an a-priori based on a smallest effect size of interest (SESOI) - just because the true effect size might be smaller than the SESOI. Trivially small effect sizes are scientifically uninteresting, and researchers should not be interested in detecting effects that are too small to matter [@lakens_sample_2022].
 
-Third, we agree that publication bias is a systemic problem in the social sciences, which leads to inflated effect sizes in the scientific literature. In situations where no assumed plausible effect size under the alternative hypothesis is available, reporting the critical effect size [e.g., @perugini_benefits_2025] may offer a more informative perspective than computing a Type M error, which relies on such an assumption. Finally, we recognize that it is valuable to retrospectively evaluate how informative studies in a literature are, especially in fields where good research practices are uncommon. However, we believe a sensitivity power analysis combined with bias correction methods such as p uniform [@aert_correcting_2018] or a maximum likelihood estimate for a truncated distribution [@anderson_addressing_2017; @taylor_bias_1996] are more insightful. Finally, the last two authors have co-authored scientific articles promoting Type S and M errors [@bertoldo_designing_2022; @altoe_enhancing_2020], and co-created the R package PRDA that computes Type S and M errors for different designs [@callegher_prda_2021]. They were invited to co-author this article to guarantee fair and nuanced arguments by incorporating internal criticism into this project [@lakens_pandemic_2020]. The last two authors found the discussions that shaped the manuscript intellectually rewarding, and the discussions confirmed the view—also expressed in the paper—that Type S and M errors, though not without limitations, can serve as useful concepts to foster critical reflection and statistical awareness. Like many tools in scientific practice, their usefulness does not lie solely in their technical properties, but in researchers’ ability to understand their logic, reflect on their limitations, and apply them thoughtfully.
+Third, we agree that publication bias is a systemic problem in the social sciences, which leads to inflated effect sizes in the scientific literature. In situations where no assumed plausible effect size under the alternative hypothesis is available, reporting the critical effect size [e.g., @perugini_benefits_2025] may offer a more informative perspective than computing a Type M error, which relies on such an assumption. Finally, we recognize that it is valuable to retrospectively evaluate how informative studies in a literature are, especially in fields where good research practices are uncommon. However, we believe a sensitivity power analysis combined with bias correction methods such as p uniform [@aert_correcting_2018] or a maximum likelihood estimate for a truncated distribution [@anderson_addressing_2017; @taylor_bias_1996] are more insightful. Finally, the last two authors have co-authored scientific articles promoting Type S and M errors [@bertoldo_designing_2022; @altoe_enhancing_2020], and co-created the R package PRDA that computes Type S and M errors for different designs [@callegher_prda_2021]. They were invited to co-author this article to guarantee fair and nuanced arguments by incorporating internal criticism into this project [@lakens_pandemic_2020]. The last two authors found the discussions that shaped the manuscript intellectually rewarding, and the discussions confirmed the view — also expressed in the paper — that Type S and M errors, though not without limitations, can serve as useful concepts to foster critical reflection and statistical awareness. Like many tools in scientific practice, their usefulness does not lie solely in their technical properties, but in researchers’ ability to understand their logic, reflect on their limitations, and apply them thoughtfully.
 
 ## **Type 1, Type 2, Type 3, and Type S errors**
 
