@@ -52,6 +52,7 @@ author-note:
     
     conflict-of-interest: "The authors have no conflict of interest to declare."
     data-sharing: "A reproducible version of this manuscript is available at https://github.com/Lakens/rethinking_type_s_and_m_errors."
+    financial-support: "This work was funded with the support of the Ammodo Science Award 2023 for Social Sciences."
 bibliography: references.bib  
 floatsintext: true
 format:
