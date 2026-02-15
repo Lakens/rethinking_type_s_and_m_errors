@@ -1,6 +1,8 @@
 # Rethinking Type S and M Errors
 
 This repository contains files to computationally reproduce the manuscript "Rethinking Type S and M Errors" by Daniel Lakens, Cristian Mesquida, Gabriela Xavier-Quintais, Sajedeh Rasti, Enrico Toffalini, and Gianmarco Altoé. For questions, email D.Lakens\@tue.nl
+A full repository can be downloaded from github: https://github.com/Lakens/rethinking_type_s_and_m_errors
+The main files for computational reproducibility are archived at https://researchbox.org/6018
 
 # Abstract
 
@@ -23,4 +25,6 @@ Gelman and Carlin (2014) introduced Type S (sign) and Type M (magnitude) errors 
 # Compiling
 
 Make sure the working directory is set to the rethinking_type_s_and_m_errors.qmd folders. 
-Typst is used to create the PDF file. I have changed the font in "rethinking_type_s_and_m_errors\_extensions\wjschne\apaquarto\typst\typst-template.typ" on line 30, if you do not have Segoe UI installed, you might need to change it. 
+Typst is used to create the PDF file. You need to install apa_quarto, which should appear in the folder _extensions\wjschne\apaquarto in the working directory   
+# Install apaquarto: 
+# quarto::quarto_add_extension("wjschne/apaquarto", no_prompt = TRUE)
