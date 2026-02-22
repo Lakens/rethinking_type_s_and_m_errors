@@ -65,7 +65,7 @@ keywords: [Type M error, Type S error, Error Control, Hypothesis Testing, Bias C
 author-note:
   disclosures:
     conflict-of-interest: "The authors have no conflict of interest to declare."
-    data-sharing: "A reproducible version of this manuscript in Quarto that contains the simulation data and code to generate all statistical results is available at ResearchBox (https://researchbox.org/6018) at DOI and on GitHub: https://github.com/Lakens/rethinking_type_s_and_m_errors."
+    data-sharing: "A reproducible version of this manuscript in Quarto that contains the simulation data and code to generate all statistical results is available at on GitHub  (https://github.com/Lakens/rethinking_type_s_and_m_errors) and archived at Zenodo (https://doi.org/10.5281/zenodo.18648142)."
     financial-support: "This work was funded with the support of the  Netherlands Organization for Scientific Research (NWO Vici grant VI.C.241.013) and the Ammodo Science Award 2023 for Social Sciences."
 bibliography: references.bib  
 floatsintext: true
@@ -73,6 +73,9 @@ format:
   apaquarto-typst:
     a4paper: true
     mainfont: "Times New Roman"
+  docx:
+    fig-cap-location: bottom
+    tbl-cap-location: top
 editor_options: 
   chunk_output_type: console
 ---
@@ -503,7 +506,7 @@ ggplot(long_data, aes(x = value, fill = variable_label, color = variable_label))
   ) +
   scale_fill_manual(
     values = c(
-      "P-uniform" = "#bb7125",
+      "p-uniform" = "#bb7125",
       "Type M" = "#ffdd00",
       "Observed d" = "#00978d",
       "Observed d (grey)" = "grey70"

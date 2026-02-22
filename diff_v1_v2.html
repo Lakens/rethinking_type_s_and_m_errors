@@ -1,0 +1,1033 @@
+<!doctype html><html><head><meta charset="utf-8"><title>QMD word-diff</title><style>
+:root{--ins:#eaffea;--del:#ffecec;--codebg:#f7f7f7;--metabg:#f3f3f3;--border:#e8e8e8;}
+body{font-family:'Times New Roman', Times, serif;margin:1.2rem;max-width:1100px;}
+h1,h2,h3,h4,h5,h6{margin:0.9em 0 0.4em;line-height:1.2;}
+h1{font-size:2.0em;} h2{font-size:1.6em;} h3{font-size:1.35em;}
+h4{font-size:1.2em;} h5{font-size:1.05em;} h6{font-size:1.0em;}
+
+.line,.meta{white-space:pre-wrap;line-height:1.5;}
+.meta{background:var(--metabg);border:1px solid var(--border);padding:6px 8px;border-radius:4px;margin:6px 0;}
+.ins{background:var(--ins);}
+.del{background:var(--del);text-decoration:line-through;}
+
+pre.codeblock{
+  white-space:pre-wrap;line-height:1.35;
+  font-family:'Courier New', Courier, monospace;
+  background:var(--codebg);border:1px solid var(--border);
+  padding:10px 12px;margin:10px 0;border-radius:6px;overflow:auto;
+}
+code.icode{
+  font-family:'Courier New', Courier, monospace;
+  background:#f1f1f1;padding:0 3px;border-radius:3px;
+}
+
+.ln{
+  display:inline-block;min-width:4.5em;
+  color:#777;user-select:none;padding-right:0.8em;
+}
+.txt{display:inline;}
+</style></head><body><h1>QMD word-diff</h1><div class="meta"><span class="ln">1</span><span class="txt">diff --git a/original_version/rethinking_type_s_and_m_errors.qmd b/rethinking_type_s_and_m_errors.qmd</span></div>
+<div class="meta"><span class="ln">2</span><span class="txt">index 7977880..ecac6c5 100644</span></div>
+<div class="meta"><span class="ln">3</span><span class="txt">--- a/original_version/rethinking_type_s_and_m_errors.qmd</span></div>
+<div class="meta"><span class="ln">4</span><span class="txt">+++ b/rethinking_type_s_and_m_errors.qmd</span></div>
+<div class="meta"><span class="ln">5</span><span class="txt">@@ -1,685 +1,600 @@</span></div>
+<div class="line"><span class="ln">6</span><span class="txt">---</span></div>
+<div class="line"><span class="ln">7</span><span class="txt">title: &quot;Rethinking Type S and M Errors&quot;</span></div>
+<div class="line"><span class="ln">8</span><span class="txt">shorttitle: &quot;Rethinking Type S and M Errors&quot;</span></div>
+<div class="line"><span class="ln">9</span><span class="txt"><span class="ins"># CREDIT roles: Conceptualization, Data curation, Formal analysis, Funding acquisition, </span></div>
+<div class="line"><span class="ln">10</span><span class="txt"></span></span></div>
+<div class="line"><span class="ln">11</span><span class="txt"><span class="ins"># Investigation, Methodology, Validation, Visualization, Writing – original draft, </span></div>
+<div class="line"><span class="ln">12</span><span class="txt"></span></span></div>
+<div class="line"><span class="ln">13</span><span class="txt"><span class="ins"># Writing – review &amp; editing</span></span></div>
+<div class="line"><span class="ln">14</span><span class="txt">author:</span></div>
+<div class="line"><span class="ln">15</span><span class="txt">  - name: <span class="del">Daniel</span><span class="ins">Daniël</span> Lakens</span></div>
+<div class="line"><span class="ln">16</span><span class="txt">    corresponding: true</span></div>
+<div class="line"><span class="ln">17</span><span class="txt">    orcid: 0000-0002-8393-5316</span></div>
+<div class="line"><span class="ln">18</span><span class="txt">    email: D.Lakens@tue.nl</span></div>
+<div class="line"><span class="ln">19</span><span class="txt">    <span class="ins">roles:</span></div>
+<div class="line"><span class="ln">20</span><span class="txt"></span></span></div>
+<div class="line"><span class="ln">21</span><span class="txt"><span class="ins">      - conceptualization, writing, formal analysis, funding acquisition</span></span></div>
+<div class="line"><span class="ln">22</span><span class="txt">    affiliations:</span></div>
+<div class="line"><span class="ln">23</span><span class="txt">      - name: Eindhoven University of Technology</span></div>
+<div class="line"><span class="ln">24</span><span class="txt">        department: Industrial Engineering and Innovation Sciences</span></div>
+<div class="line"><span class="ln">25</span><span class="txt">        address: Den Dolech 2, 5600 MB<span class="del">, Eindhoven</span></span></div>
+<div class="line"><span class="ln">26</span><span class="txt">        city: Eindhoven</span></div>
+<div class="line"><span class="ln">27</span><span class="txt">  - name: Cristian Mesquida</span></div>
+<div class="line"><span class="ln">28</span><span class="txt">    orcid: 0000-0002-1542-8355</span></div>
+<div class="line"><span class="ln">29</span><span class="txt">    email: c.mesquida.caldentey@tue.nl</span></div>
+<div class="line"><span class="ln">30</span><span class="txt">    <span class="ins">roles:</span></div>
+<div class="line"><span class="ln">31</span><span class="txt"></span></span></div>
+<div class="line"><span class="ln">32</span><span class="txt"><span class="ins">      - writing - review and editing</span></span></div>
+<div class="line"><span class="ln">33</span><span class="txt">    affiliations:</span></div>
+<div class="line"><span class="ln">34</span><span class="txt">      - name: Eindhoven University of Technology</span></div>
+<div class="line"><span class="ln">35</span><span class="txt">        department: Industrial Engineering and Innovation Sciences</span></div>
+<div class="line"><span class="ln">36</span><span class="txt">        address: Den Dolech 2, 5600 MB, Eindhoven</span></div>
+<div class="line"><span class="ln">37</span><span class="txt">        city: Eindhoven</span></div>
+<div class="line"><span class="ln">38</span><span class="txt">  - name: Gabriela Xavier-Quintais</span></div>
+<div class="line"><span class="ln">39</span><span class="txt">    orcid: 0000-0003-4896-1225</span></div>
+<div class="line"><span class="ln">40</span><span class="txt">    email: fc56156@alunos.ciencias.ulisboa.pt</span></div>
+<div class="line"><span class="ln">41</span><span class="txt">    <span class="ins">roles:</span></div>
+<div class="line"><span class="ln">42</span><span class="txt"></span></span></div>
+<div class="line"><span class="ln">43</span><span class="txt"><span class="ins">      - writing - review and editing</span></span></div>
+<div class="line"><span class="ln">44</span><span class="txt">    affiliations:</span></div>
+<div class="line"><span class="ln">45</span><span class="txt">      - name: University of Lisbon</span></div>
+<div class="line"><span class="ln">46</span><span class="txt">        department: Faculty of Sciences</span></div>
+<div class="line"><span class="ln">47</span><span class="txt">  - name: Sajedeh Rasti</span></div>
+<div class="line"><span class="ln">48</span><span class="txt">    orcid: 0009-0007-3416-7692</span></div>
+<div class="line"><span class="ln">49</span><span class="txt">    email: S.Rasti@tue.nl</span></div>
+<div class="line"><span class="ln">50</span><span class="txt">    <span class="ins">roles:</span></div>
+<div class="line"><span class="ln">51</span><span class="txt"></span></span></div>
+<div class="line"><span class="ln">52</span><span class="txt"><span class="ins">      - writing - review and editing</span></span></div>
+<div class="line"><span class="ln">53</span><span class="txt">    affiliations:</span></div>
+<div class="line"><span class="ln">54</span><span class="txt">      - name: Eindhoven University of Technology</span></div>
+<div class="line"><span class="ln">55</span><span class="txt">        department: Industrial Engineering and Innovation Sciences</span></div>
+<div class="line"><span class="ln">56</span><span class="txt">        address: Den Dolech 2, 5600 MB, Eindhoven</span></div>
+<div class="line"><span class="ln">57</span><span class="txt">        city: Eindhoven</span></div>
+<div class="line"><span class="ln">58</span><span class="txt">  - name: Enrico Toffalini</span></div>
+<div class="line"><span class="ln">59</span><span class="txt">    orcid: 0000-0002-1404-5133</span></div>
+<div class="line"><span class="ln">60</span><span class="txt">    email: enrico.toffalini@unipd.it</span></div>
+<div class="line"><span class="ln">61</span><span class="txt">    <span class="ins">roles: </span></div>
+<div class="line"><span class="ln">62</span><span class="txt"></span></span></div>
+<div class="line"><span class="ln">63</span><span class="txt"><span class="ins">     - writing - review and editing</span></span></div>
+<div class="line"><span class="ln">64</span><span class="txt">    affiliations:</span></div>
+<div class="line"><span class="ln">65</span><span class="txt">      - name: University of Padova</span></div>
+<div class="line"><span class="ln">66</span><span class="txt">        department: Department of General Psychology</span></div>
+<div class="line"><span class="ln">67</span><span class="txt">  - name: Gianmarco Altoè</span></div>
+<div class="line"><span class="ln">68</span><span class="txt">    orcid: 0000-0003-1154-9528</span></div>
+<div class="line"><span class="ln">69</span><span class="txt">    email: gianmarco.altoe@unipd.it</span></div>
+<div class="line"><span class="ln">70</span><span class="txt">    <span class="ins">roles:</span></div>
+<div class="line"><span class="ln">71</span><span class="txt"></span></span></div>
+<div class="line"><span class="ln">72</span><span class="txt"><span class="ins">      - conceptualization, writing - review and editing</span></span></div>
+<div class="line"><span class="ln">73</span><span class="txt">    affiliations:</span></div>
+<div class="line"><span class="ln">74</span><span class="txt">      - name: University of Padova</span></div>
+<div class="line"><span class="ln">75</span><span class="txt">        department: Department of Developmental Psychology and Socialisation</span></div>
+<div class="line"><span class="ln">76</span><span class="txt">abstract: &quot;Gelman and Carlin (2014) introduced Type S (sign) and Type M (magnitude) errors to highlight the possibility that statistically significant results in published articles are misleading. While these concepts have been proposed to be useful both when designing a study (prospective) and when evaluating results (retroactive), we argue that these statistics do not facilitate the proper design of studies, nor the meaningful interpretation of results. Type S errors are a response to the criticism of testing against a point null of exactly zero in contexts where true zero effects are implausible. Testing against a minimum-effect, while controlling the Type 1 error rate, provides a more coherent and practically useful alternative. Type M errors warn against effect size inflation after selectively reporting significant results, but we argue that statistical indices such as the critical effect size or bias adjusted effect size are preferable approaches. We do believe that Type S and M errors can be valuable in statistics education where the principles of error control are explained, and in the discussion section of studies that fail to follow good research practices. Overall, we argue their use-cases are more limited than is currently recognized, and alternative solutions deserve greater attention.&quot;</span></div>
+<div class="line"><span class="ln">77</span><span class="txt">keywords: [Type M error, Type S error, Error Control, Hypothesis Testing, Bias Correction]</span></div>
+<div class="line"><span class="ln">78</span><span class="txt">author-note:</span></div>
+<div class="line"><span class="ln">79</span><span class="txt">  disclosures:</span></div>
+<div class="line"><span class="ln">80</span><span class="txt"><span class="del">    </span></div>
+<div class="line"><span class="ln">81</span><span class="txt"></span></span></div>
+<div class="line"><span class="ln">82</span><span class="txt">    conflict-of-interest: &quot;The authors have no conflict of interest to declare.&quot;</span></div>
+<div class="line"><span class="ln">83</span><span class="txt">    data-sharing: &quot;A reproducible version of this manuscript <span class="ins">in Quarto that contains the simulation data and code to generate all statistical results</span> is available at <span class="ins">on GitHub  (</span>https://github.com/Lakens/rethinking_type_s_and_m_errors<span class="ins">) and archived at Zenodo (https://doi.org/10.5281/zenodo.18648142).&quot;</span></div>
+<div class="line"><span class="ln">84</span><span class="txt"></span></span></div>
+<div class="line"><span class="ln">85</span><span class="txt"><span class="ins">    financial-support: &quot;This work was funded with the support of the  Netherlands Organization for Scientific Research (NWO Vici grant VI.C.241.013) and the Ammodo Science Award 2023 for Social Sciences</span>.&quot;</span></div>
+<div class="line"><span class="ln">86</span><span class="txt">bibliography: references.bib  </span></div>
+<div class="line"><span class="ln">87</span><span class="txt">floatsintext: true</span></div>
+<div class="line"><span class="ln">88</span><span class="txt">format:</span></div>
+<div class="line"><span class="ln">89</span><span class="txt">  apaquarto-typst:</span></div>
+<div class="line"><span class="ln">90</span><span class="txt">    a4paper: true</span></div>
+<div class="line"><span class="ln">91</span><span class="txt">    <span class="del">keep-tex</span><span class="ins">mainfont</span>: <span class="del">true</span><span class="ins">&quot;Times New Roman&quot;</span></span></div>
+<div class="line"><span class="ln">92</span><span class="txt">editor_options: </span></div>
+<div class="line"><span class="ln">93</span><span class="txt">  chunk_output_type: console</span></div>
+<div class="line"><span class="ln">94</span><span class="txt">---</span></div>
+<div class="line"><span class="ln">95</span><span class="txt"></span></div>
+<pre class="codeblock">
+```{r}
+#| include: false
+#| label: load_functions
+
+<span class="ins"># Install apaquarto: 
+</span>
+<span class="ins"># quarto::quarto_add_extension(&quot;wjschne/apaquarto&quot;, no_prompt = TRUE)</span>
+
+options(scipen = 99)
+library(effsize)   # for Cohen's d
+<span class="del">library(weightr)   # for selection model bias correction
+</span>
+library(puniform)  # for p-curve bias correction
+<span class="ins">#</span> library(BUCSS)     # for BUCSS bias correction<span class="ins">, not used in revision</span>
+library(PRDA)      # for Type S and M error calculation
+library(pwr)
+<span class="del">library(dplyr)
+</span>
+library(tidyverse)
+<span class="del">library(ggplot2)
+</span>
+# remotes::install_github(&quot;psicostat/criticalESvalue&quot;)
+library(criticalESvalue)  # for critical effect size calculation
+library(progress)
+library(forcats)
+
+#Create Session Info file for reproducibility
+sink(&quot;session_info.txt&quot;)
+sessionInfo()
+sink()
+
+# critical d value for all examples with n = 40
+m1&lt;-0.5
+m2&lt;-0
+sd1&lt;-1
+sd2&lt;-1
+n1&lt;-40
+n2&lt;-40
+
+se &lt;- sqrt(sd1^2 / n1 + sd2^2 / n2)
+t &lt;- (m1 - m2) / se
+crit_res &lt;- <span class="ins">criticalESvalue::</span>critical_t2s(t = t, n1 = n1, n2 = n2, se = se, var.equal = TRUE)
+critical_d &lt;- crit_res$dc
+
+# Custom function to compare effect size correction approaches
+compare_effect_size_corrections &lt;- function(n = 40, mu1 = 1, mu2 = 0, sd = 1, alpha = 0.05, retrodesign_d = NULL, sided = 1, exact = TRUE) {
+  
+  # ---- Step 1: Simulate data ----
+  
+  if (exact) {
+    group1 &lt;- MASS::mvrnorm(
+      n = n, 
+      mu = mu1, 
+      Sigma = matrix(sd^2, 1), 
+      empirical = TRUE)
+    group2 &lt;- MASS::mvrnorm(
+      n = n, 
+      mu = mu2, 
+      Sigma = matrix(sd^2, 1), 
+      empirical = TRUE)
+  } else {
+    group1 &lt;- rnorm(n, mu1, sd)
+    group2 &lt;- rnorm(n, mu2, sd)
+  }
+  
+  # ---- Step 2: Compute Cohen's d ----
+  cohen_result &lt;- cohen.d(group1, group2, pooled = TRUE)
+  observed_d &lt;- as.numeric(cohen_result$estimate)
+  true_d &lt;- ((mu1 - mu2) / sd)
+  
+  # Compute power for one-sided two-sample t-test
+  
+  alternative_type &lt;- if (sided == 1) &quot;greater&quot; else &quot;two.sided&quot;
+  
+  pwr_result &lt;- pwr.t.test(
+    d = true_d,
+    n = n,
+    sig.level = alpha,
+    type = &quot;two.sample&quot;,
+    alternative = alternative_type
+  )$power
+  
+  # ---- Step 3: Compute SE of d ----
+  compute_se_d &lt;- function(n_per_group) sqrt(2 / n_per_group)
+  se_d &lt;- compute_se_d(n)
+  
+  # ---- Step 4: Perform t-test ----
+  t_test_result &lt;- t.test(group1, group2, var.equal = TRUE)
+  tobs &lt;- as.numeric(t_test_result$statistic)
+  df &lt;- 2 * n - 2
+  pval &lt;- t_test_result$p.value
+  
+  # ---- Step 6: BUCSS ----
+  adjusted_bucss_d &lt;- tryCatch({
+  suppressWarnings({
+    BUCSS_result &lt;- ss.power.it(
+      t.observed = tobs, 
+      n = n, 
+      alpha.prior = alpha, 
+      alpha.planned = alpha,
+      assurance = 0.50, 
+      power = 0.80, 
+      step = 0.001
+    )
+    BUCSS_result[[2]] / sqrt(n / 2)
+  })
+}, error = function(e) {
+  NA
+})
+
+  # ---- Step 7: puniform correction ----
+  puniform_d &lt;- tryCatch({
+    result &lt;- puniform(
+      n1i = n,
+      n2i = n,
+      tobs = tobs,
+      side = &quot;right&quot;,
+      plot = FALSE
+    )
+    result$est
+  }, error = function(e) {
+    return(NA)
+  })
+  
+  # ---- Step 8: Type M error PRDA package ----
+  alternative_type &lt;- if (sided == 1) &quot;greater&quot; else &quot;two_sided&quot;
+  if (is.null(retrodesign_d)) {
+    retrodesign_d &lt;- observed_d
+  }
+  
+  prda &lt;- PRDA::retrospective(
+    effect_size = retrodesign_d, 
+    sample_n1 = n, 
+    sample_n2 = n, 
+    test_method = &quot;two_sample&quot;, 
+    alternative = alternative_type
+  )
+  typeM_prda &lt;- prda$retrospective_res$typeM
+  # Even though Type M errors are not intended as corrections, it is misused this way in the literature. We aim to illustrate why this is not correct. 
+  adjusted_prda_d &lt;- observed_d / typeM_prda
+  
+  invisible(list(
+    p_value = pval,
+    significant = TRUE,
+    true_d = true_d,
+    power = pwr_result,
+    observed_d = observed_d,
+    BUCSS = adjusted_bucss_d, 
+    puniform = puniform_d,
+    type_m = adjusted_prda_d
+  ))
+}
+
+
+```
+</pre>
+<div class="line"><span class="ln">251</span><span class="txt"></span></div>
+<div class="line"><span class="ln">252</span><span class="txt">Neyman-Pearson hypothesis testing is a widespread approach to statistical inferences in the social sciences. <span class="ins">Power analyses have increased to 30% across all articles that conducted a quantitative primary analysis across psychological disciplines, with an adoption of 46.7% in experimental psychology [@vankelecomSystematicReviewEvolution2025]. Using a pre-specified alpha level is increasingly common with the adoption of preregistration of statistical analysis plans [@fergusonSurveyOpenScience2023].</span> As a consequence of its popularity, <span class="del">it</span><span class="ins">Neyman-Pearson hypothesis testing</span> is commonly criticized, and critics regularly propose alternative statistical procedures to interpret results. One criticism of null hypothesis tests is that the null hypothesis is never true [@cohen1994]. Gelman and Tuerlinckx [-@gelman2000] argue that because it seems unlikely that effect sizes are ever exactly zero for continuous data, it is uninteresting to control the probability of a Type 1 error. After all, if the null is never true, researchers do not need to worry about incorrectly claiming there is an effect, when there is no effect. They propose to compute the Type S error, or 'sign error', which quantifies the long-run frequency that a significant effect in the opposite direction of the true effect size is observed. <span class="ins">The probability of a Type S error is at most 2.5% (the probability of an extreme result in the tail of the distribution opposite to the true effect), and in practice often trivially small.</span> They argue that Type S error rates are &quot;the relevant error rate for statistical analyses in the social and behavioral sciences&quot; (p. 388). Gelman and Tuerlinckx [-@gelman2000] also propose to report the Type M error, which quantifies the <span class="ins">extent to which effect size estimates are overestimated due to selection bias. For example, a Type M error of 2 indicates that the</span> absolute average effect size <span class="del">inflation for a study design if only statistically</span><span class="ins">estimates after all non-</span>significant <span class="del">results</span><span class="ins">studies</span> are <span class="del">reported</span><span class="ins">removed will be twice as large as the true effect size</span>. Gelman and Carlin [-@gelman2014] suggest that Type M errors are useful to understand that significant effect sizes from underpowered studies are almost certain to be a huge overestimate of the true effect. Gelman and Carlin [-@gelman2014, p. 644] say that problems with Type S errors become a concern &quot;when power is less than 0.1&quot; and Type M errors become a concern &quot;when power is less than 0.5&quot;.</span></div>
+<div class="line"><span class="ln">253</span><span class="txt"></span></div>
+<div class="line"><span class="ln">254</span><span class="txt">Before criticizing the proposed use of Type S and M errors, it is important to acknowledge several points of agreement. First, we agree with Gelman and Tuerlinckx [-@gelman2000] that it is uninteresting to test against a null hypothesis of no effect when it is highly unlikely that the true effect size is zero. However, we believe this problem should be addressed by performing a minimal effect test for superiority against a range of values that is considered practically equivalent to zero. Such tests against a non-<span class="del">nill</span><span class="ins">nil-</span>null hypothesis have been suggested for more than half a century [@hodges1954<span class="del">,</span><span class="ins">;</span> @nunnally1960; @lakens_practical_2021; @serlin_rationality_1985]. We also agree with Gelman and Carlin that performing an a priori power analysis based on estimates of a previous study or an expected effect size is not best practice, and leads to bias [@albers_whenpoweranalyses_2018]. However, we see no problem with what is currently considered best practice - performing an a<span class="del">-</span> priori based on a smallest effect size of interest (SESOI) - just because the true effect size might be smaller than the SESOI. Trivially small effect sizes are scientifically uninteresting, and researchers should not be interested in detecting effects that are too small to matter [@lakens_sample_2022].</span></div>
+<div class="line"><span class="ln">255</span><span class="txt"></span></div>
+<div class="line"><span class="ln">256</span><span class="txt">Third, we agree that publication bias is a systemic problem in the social sciences, which leads to inflated effect sizes in the scientific literature. In situations where no assumed plausible effect size under the alternative hypothesis is available, reporting the critical effect size [e.g., @perugini_benefits_2025] may offer a more informative perspective than computing a Type M error, which relies on such an assumption. Finally, we recognize that it is valuable to retrospectively evaluate how informative studies in a literature are, especially in fields where good research practices are uncommon. However, we believe a sensitivity power analysis combined with bias correction methods such as <span class="ins">*</span>p<span class="ins">*-</span>uniform [@aert_correcting_2018] or a maximum likelihood estimate for a truncated distribution [@anderson_addressing_2017; @taylor_bias_1996] are more insightful. Finally, the last two authors have co-authored scientific articles promoting Type S and M errors [@bertoldo_designing_2022; @altoe_enhancing_2020], and co-created the R package PRDA that computes Type S and M errors for different designs [@callegher_prda_2021]. They were invited to co-author this article to guarantee fair and nuanced arguments by incorporating internal criticism into this project [@lakens_pandemic_2020]. The last two authors found the discussions that shaped the manuscript intellectually rewarding, and the discussions confirmed the view <span class="del">—</span><span class="ins">-</span> also expressed in the paper <span class="del">—</span><span class="ins">-</span> that Type S and M errors, though not without limitations, can serve as useful concepts to foster critical reflection and statistical awareness. Like many tools in scientific practice, their usefulness does not lie solely in their technical properties, but in researchers’ ability to understand their logic, reflect on their limitations, and apply them thoughtfully.</span></div>
+<div class="line"><span class="ln">257</span><span class="txt"></span></div>
+<h2>Type 1, Type 2, Type 3, and Type S errors</h2>
+<div class="line"><span class="ln">259</span><span class="txt"></span></div>
+<div class="line"><span class="ln">260</span><span class="txt">Type 1 errors occur when the null hypothesis is true, but a statistically significant result is observed. The null hypothesis in a two-sided test is that the population effect size is 0. The alternative hypothesis is that there is an effect - either in the positive or negative direction. After observing a statistically significant result the correct claim is that the null hypothesis can be rejected, and we can act - with <span class="del">an</span><span class="ins">a maximum</span> error rate of α - <span class="del">that</span><span class="ins">as if</span> there is a non-zero effect. Because no directional claims are made in a correctly performed two-sided null hypothesis test, sign errors are impossible in two-sided hypothesis tests. There are other tests where sign errors can't occur, such as an omnibus *F*-test used to detect differences between groups, as the *F*-distribution is based on squared deviations and only has positive values.</span></div>
+<div class="line"><span class="ln">261</span><span class="txt"></span></div>
+<div class="line"><span class="ln">262</span><span class="txt">Researchers sometimes incorrectly make a directional claim after a two-sided test, which can lead to what Kaiser [-@kaiser_directional_1960] has referred to as <span class="del">a Type 3</span><span class="ins">an</span> error <span class="ins">of the third kind</span>. <span class="del">Type 3 errors occur</span><span class="ins">An error of the third kind occurs</span> when H0 is false, a statistically significant effect is observed in the opposite direction of the true effect, and researchers make a directional claim. The correct way to make directional claims is to perform a one-sided test. If researchers want to make a claim about an effect in the positive or negative direction, they should follow Kaiser’s [-@kaiser_directional_1960] proposal to perform two one-sided null-hypothesis tests, one in the positive direction, and one in the negative direction, each at α/2 [see also @leventhal_directional_1996]. <span class="ins">This would not change the conclusions researchers draw in practice compared to the current widespread use of two-sided tests, but it would make these conclusions logically coherent.</span></span></div>
+<div class="line"><span class="ln">263</span><span class="txt"></span></div>
+<div class="line"><span class="ln">264</span><span class="txt">According to Gelman and Tuerlinckx [-@gelman2000] effects are never exactly zero. This leads them to argue that it is uninteresting to perform a null-hypothesis test, or to control the Type 1 error rate. They propose to remove effects of 0 from the possible effect sizes that can be observed. This creates a situation where all effects are true effects, either in the positive or the negative direction. A statistical test now has two possible results:  Effects in the opposite direction as the true effect size are correctly rejected, or effects in the true direction are incorrectly rejected - a Type S error. Type S errors can be computed for any test that makes claims based on a threshold [for closed form formula, see @lu_note_2019], but in this article we will focus on frequentist hypothesis tests. We set the alpha level for the test to 0.05 in all examples below. </span></div>
+<div class="line"><span class="ln">265</span><span class="txt"></span></div>
+<div class="line"><span class="ln">266</span><span class="txt">If one believes effect sizes of 0 do not exist, it is no longer possible to perform a two-sided <span class="del">nill</span><span class="ins">nil</span>-null hypothesis test. Gelman and Tuerlinckx [-@gelman2000] instead recommend to perform two simultaneous one-sided tests: One test in the positive direction, and one test in the negative direction. To understand Type S errors, it is useful to consider the most extreme scenario where the effect size is not zero. If there is an infinitesimally small positive effect, the statistical power of the test is practically indistinguishable from the alpha level of 0.05. Effects will be rejected in the positive direction with a probability of 0.025 in the long run (correct rejections), and effects will be rejected in the negative direction with a probability of 0.025 in the long run (Type S errors). The only <span class="del">reason we do not call</span><span class="ins">difference between</span> a Type S error <span class="ins">and</span> a Type 1 error <span class="ins">in this scenario</span> is <span class="del">because</span><span class="ins">that</span> Gelman and Tuerlinckx have removed the value of 0 from the distribution of possible effect sizes. A Type 1 error consists of all significant test results for values ≤ 0, while a Type S error consists of all significant test values \&lt; 0. As any point in a continuous distribution has 0 probability, excluding the value of 0 will not change the long-run probabilities.<span class="del">Therefore, a Type S error has the same probability as a Type 1 error in a one-sided test.</span> The difference between a Type 1 error and Type S error <span class="ins">in this extreme scenario</span> is purely conceptual<span class="del">, as Type 1 and Type S error rates are identical in one-sided tests</span>.</span></div>
+<div class="line"><span class="ln">267</span><span class="txt"></span></div>
+<div class="line"><span class="ln">268</span><span class="txt">When two one-sided tests are performed and the null is <span class="del">never true</span><span class="ins">false</span>, the Type S error rate is at most α/2. Gelman and Turelinckx prefer to express the Type S error rate as a proportion of the significant results and &quot;believe that this conditional probability is the appropriate error rate to consider, since our primary concern is to understand the frequency properties of claims with confidence&quot;. In the infinitesimal effect case the statistical power of the test is 0.05 and the Type S error is 0.025, so the rate of Type S errors as a proportion of significant results is 0.025/0.05 = 0.5. In the extreme case where power is as low as the alpha level, 50% of significant results are sign errors.</span></div>
+<div class="line"><span class="ln">269</span><span class="txt"></span></div>
+<div class="line"><span class="ln">270</span><span class="txt">This conditional probability is similar to the false discovery rate, which is the expected proportion of false positives among all positive findings. Just as Type 1 errors only occur when the null hypothesis is true, the false discovery rate only occurs when the null hypothesis is true. But once again, removing the value of 0, which itself has 0 probability, does not change the long-run false discovery rate. If researchers believe the null is true, a Type 1 error (a rejection of positive effects, when there is a positive effect) will be observed with a probability of 0.025, and a correct rejection (a rejection of negative effects, when there is a positive effect) will occur with a probability of 0.025. From all positive findings (0.025 false positives + 0.025 true positives = 0.05 positive test results) 50% are false positives. Therefore, the false discovery rate is 50% in the two one-sided testing procedure. The <span class="ins">maximum</span> conditional Type S probability is identical to the false discovery rate, with the conceptual difference that it excludes the value of 0 from the hypothesized values. <span class="ins">Type S errors differ from Type 1 errors and false discovery rates in that they can be computed for a range of assumed true effect sizes. But as Type 1 error rates are already small, Type S probabilities quickly become even smaller, and as the true effect size is unknown, the added value of presenting a range of Type S error rates remains unclear.</span></span></div>
+<div class="line"><span class="ln">271</span><span class="txt"></span></div>
+<h2>Should effects of 0 be considered impossible?</h2>
+<div class="line"><span class="ln">273</span><span class="txt"></span></div>
+<div class="line"><span class="ln">274</span><span class="txt">Note that it is somewhat peculiar to completely exclude the possibility that effect sizes of 0 exist in a hypothesis test. After all, one could just as easily argue that in continuous data, no true effect size is exactly 0.5, but no one would propose to remove 0.5 from the space of hypothesized values. Researchers have also disagreed with the idea that effect sizes are never zero, with Krueger and Heck [-@krueger_putting_2019] stating that: &quot;for many questions humans ask of nature, the null (or any particular tested hypothesis) may in fact be true.&quot; Frick [-@frick_accepting_1995] concludes that &quot;for some experiments, the null hypothesis is possible&quot;. And Hagen [-@hagen_praise_1997] drives home the criticism even more forcefully: &quot;If, as some have claimed, the null hypothesis is always false, we would be foolish, indeed, to spend time conducting statistical tests that can only tell us what we already know. But we need not feel foolish. As far as I can tell, the claim has never been sustained by either statistical or logical arguments&quot;. Neither side can provide empirical support for or against the hypothesis that the null hypothesis is never true, as we can't measure the entire population for all effects scientists want to study. The claim that the null is never true is scientifically unfalsifiable.</span></div>
+<div class="line"><span class="ln">275</span><span class="txt"></span></div>
+<div class="line"><span class="ln">276</span><span class="txt">It seems difficult to justify why one would believe the null is never true, while there is no doubt that an effect size of 1×10⁻³² can be true. Instead of discussing which effect sizes can be true, a more sensible concern is the idea that all variables are connected through theoretically uninteresting causal structures that result in non-zero correlations between variables (especially in observational studies). In psychology, this idea is referred to as the crud factor [@meehl_appraising_1990; @orben_crud_2020]. The crud factor has been one argument to move beyond null hypothesis significance tests, and instead test against a range of theoretically or practically uninteresting effect sizes around zero by performing a minimum-effect test, or a test for superiority [@lakens_equivalence_2018].</span></div>
+<div class="line"><span class="ln">277</span><span class="txt"></span></div>
+<div class="line"><span class="ln">278</span><span class="txt">Instead of performing a test that rejects effect sizes of 0, researchers can specify a smallest effect size of interest, and test whether they can statistically reject all effects that are deemed too small to matter. <span class="del">Such a minimum</span><span class="ins">Minimum</span>-effect tests resolve most of the problems researchers have with <span class="del">null</span><span class="ins">nil</span>-<span class="ins">null</span> hypothesis significance testing [@lakens_practical_2021], including the concern that the null is never true. If researchers do not believe it is scientifically interesting to reject effects of exactly 0 they can test whether effects in a range around 0 can be rejected. For example, Ferguson and Heene [-@ferguson_providing_2021] empirically show that correlational effects in aggression research are unlikely to ever be exactly 0, and established a correlation of *r* = 0.1 are a lower bound for hypothesis tests in this research field. A directional minimum-effect test against *r* ≤ 0.1 is rejected if the lower bound of the 90% confidence interval around the observed correlation is larger than 0.1 [@lakens_equivalence_2018]. <span class="del">minimum</span><span class="ins">Minimum</span>-effect tests are a better solution than arbitrarily excluding a point value of 0 from <span class="ins">the range of</span> effects that are <span class="ins">considered</span> possible. If minimum-effect tests are adopted, the idea of a Type S error is no longer needed, as it is equivalent to a Type 1 error for one-sided tests against a non-<span class="del">nill</span><span class="ins">nil-</span>null hypothesis.</span></div>
+<div class="line"><span class="ln">279</span><span class="txt"></span></div>
+<h2>Should researchers report Type S errors in scientific articles?</h2>
+<div class="line"><span class="ln">281</span><span class="txt"></span></div>
+<div class="line"><span class="ln">282</span><span class="txt">Whereas Gelman and Tuerlinckx [-@gelman2000] only discuss the relevance of Type S errors relative to Type 1 errors, Gelman and Carlin [-@gelman2014] take an additional step and suggest that it is useful to compute and report Type S error rates for specific studies. To compute a Type S error researchers need to specify what they believe is the true effect size. Gelman and Carlin suggest using a literature review or other available data. They provide an example where the original author observed an effect of 8 percentage points. Gelman and Carlin do not believe this finding can be correct, and retrospectively compute the Type S error based on effect sizes they believe are more likely to be true: 0.1, 0.3, and 1 percentage point. When they compute the Type S error for the much smaller effects they deem plausible, the probability of a sign error can be quite large as long as the statistical power is low.</span></div>
+<div class="line"><span class="ln">283</span><span class="txt"></span></div>
+<div class="line"><span class="ln">284</span><span class="txt">Is it useful to compute and report Type S errors in this way? One problem with retrospective design analysis is that if a skeptic wants to argue that an effect size is unreliable, a retrospective design analysis will practically never prove them wrong. For any effect where a skeptical reader feels the need to question the scientific claim by performing a retrospective design analysis, there will be substantial uncertainty about the true effect size. In these cases, the literature (or any other external data) will rarely - if ever - provide strong constraints on how small effect sizes can plausibly be. This means a skeptical reader can always find reasons to perform a retrospective design analysis for very small effect sizes, which make it easy to claim that there is a high probability of a sign error. If the skeptic was wrong, a retrospective design analysis would practically never tell them they are wrong, and claims about high Type S error rates are therefore rarely severely tested.</span></div>
+<div class="line"><span class="ln">285</span><span class="txt"></span></div>
+<div class="line"><span class="ln">286</span><span class="txt">To conclude this section, we have strong conceptual issues with Type S errors (removing 0 from the range of possible distributions is difficult to justify, and the long run probability of Type S errors is identical to the well-established Type 1 error rate and false discovery rate), as well as practical concerns (the test can too easily lead to a foregone conclusion). Type S errors mainly point out how uninformative studies with low statistical power are, and a null hypothesis test might not be an interesting question to ask. If researchers want to address these concerns, a better solution is to specify a non-<span class="ins">nil-</span>null<span class="del">nill</span> hypothesis (e.g., considering all effects between -0.1 and 0.1 as practically equivalent to 0) and perform an a<span class="del">-</span> priori power analysis for the smallest effect size of interest. After the data is in, the Type S error is at most 2.5%, as is the Type 1 error. Researchers should always make a claim while acknowledging the maximum possible Type 1 error rate (e.g., 2.5% in an one-sided test with an alpha level of 0.025) and any quantification of how much lower the Type S error might be, depending on weakly informed guesses of the true effect size, comes with great uncertainty.</span></div>
+<div class="line"><span class="ln">287</span><span class="txt"></span></div>
+<div class="line"><span class="ln">288</span><span class="txt">Gelman and Carlin [-@gelman2014] argue that a retrospective design analysis can reveal that 'a study was too small to be informative'. But this seems misguided. If a significant effect was observed in a well-performed test we can reject the null with a maximum Type 1 error rate of 2.5%, which is small enough to take the result seriously. The study might have had very low power to detect an effect, but if it happened to detect an effect with the desired maximum Type 1 error rate, the fact that the study had a low probability to yield an informative outcome a<span class="del">-</span> priori no longer matters. The observed effect size might be measured inaccurately, and inflated due to selection bias (see Type M errors below)<span class="ins">,</span> but a researcher can claim that <span class="del">there is a very small</span><span class="ins">the</span> probability that random noise is mistaken <span class="del">as</span><span class="ins">for</span> a true effect <span class="ins">is very small</span>.</span></div>
+<div class="line"><span class="ln">289</span><span class="txt"></span></div>
+<pre class="codeblock">
+```{r}
+#| include: false
+#| label: 33_power_calc
+
+# For 33% power, n = 40 per group, the effect size has to be 0.3439651
+pwr.t.test(n = 40, power = 0.33, type = &quot;two.sample&quot;, alternative = &quot;two.sided&quot;)
+
+res_33_power &lt;- PRDA::retrospective(
+    effect_size = 0.3439651, 
+    sample_n1 = 40, 
+    sample_n2 = 40, 
+    test_method = &quot;two_sample&quot;, 
+    alternative = &quot;two_sided&quot;,
+    B = 1000000
+  )
+
+```
+</pre>
+<div class="line"><span class="ln">307</span><span class="txt"></span></div>
+<div class="line"><span class="ln">308</span><span class="txt">The Type S error rate will only raise a red flag for studies with incredibly low statistical power. When the Type S error is high, the design is uninformative <span class="ins">(e.g.</span>, <span class="del">but</span><span class="ins">when the Type S error rate is at its maximum of 2.5%, the study has a statistical power of merely 5%). But</span> when the Type S error is low, the design is often still uninformative. The Type S error drops to negligible levels when the statistical power of the test is still unacceptably low. For example, Simonsohn [-@simonsohn_small_2015] considers a test with less than 33% power severely underpowered, but with 33% power the probability that a significant result is in the wrong direction is only <code class="icode">r 100*round(res_33_power$retrospective_res$typeS, 3)</code>%.</span></div>
+<div class="line"><span class="ln">309</span><span class="txt"></span></div>
+<h2>Effect size inflation and Type M errors</h2>
+<div class="line"><span class="ln">311</span><span class="txt"></span></div>
+<div class="line"><span class="ln">312</span><span class="txt">Lane and Dunlap [-@lane_estimating_1978] examined the impact of selection bias on the inflation of effect size estimates. When only statistically significant results are shared, the effect size estimate based on these studies is inflated, as smaller non-significant effects are removed from the scientific literature. In general, how much effect sizes are inflated in the presence of selection bias is a function of the power of the test. The lower the statistical power - for example because population effect sizes or sample sizes are smaller - the more significant effect sizes will be inflated. @fig-effectsize-distribution shows the expected effect size distribution for an alternative hypothesis with a true effect size of Cohen's *d* of 0.5. With a sample size of 40 participants in each group, a two-sided independent *t*-test will yield a statistically significant result if the observed effect size is larger than *d* = <code class="icode">r round(critical_d, 3)</code>. If there is extreme selection bias for statistically significant results the scientific literature would consist of effect sizes to the right of *d* = <code class="icode">r round(critical_d, 3)</code>. Instead of having access to the full distribution of expected effects, the literature will represent a truncated distribution, where all values smaller than <code class="icode">r round(critical_d, 3)</code> are removed from the distribution of expected effect sizes.</span></div>
+<div class="line"><span class="ln">313</span><span class="txt"></span></div>
+<pre class="codeblock">
+```{r}
+#| label: fig-effectsize-distribution
+#| fig-cap: &quot;Expected effect size distribution under the alternative hypothesis, assuming a true effect size of 0.5 (dashed central line). With a sample size of 40 participants per group, a two-sided independent <span class="ins">*</span>t<span class="ins">*</span>-test yields a statistically significant result when the observed effect size exceeds <span class="ins">*</span>d<span class="ins">*</span> = 0.45. The shaded area represents the subset of effect sizes published under selection bias.&quot;
+#| warning: false
+#| message: false
+#| echo: false
+#| fig-align: center
+#| fig-width: 8
+#| fig-height: 5
+
+
+## Figure illustrating critical effect size
+
+low_x &lt;- -1
+high_x &lt;- 2
+y_max &lt;- 2
+
+# Add Type 1 error rate function
+add_type1_error &lt;- function(N,
+                            side = &quot;right&quot;,
+                            ncp,
+                            col = &quot;#00978d&quot;) {
+  mult &lt;- ifelse(side == &quot;right&quot;, 1, -1)
+  crit_d &lt;- mult * abs(qt(0.05 / 2, (N * 2) - 2)) / sqrt(N / 2)
+
+  if (side == &quot;right&quot;) {
+    y &lt;- seq(crit_d, 10, length = 10000)
+  } else {
+    y &lt;- seq(-10, crit_d, length = 10000)
+  }
+
+  # determine upperbounds polygon
+  suppressWarnings({
+    z &lt;- (dt(y * sqrt(N / 2), df = (N * 2) - 2, ncp = ncp) * sqrt(N / 2))
+  })
+
+  if (side == &quot;right&quot;) {
+    polygon(c(crit_d, y, 10), c(0, z, 0), col = col)
+  } else {
+    polygon(c(y, crit_d, crit_d), c(z, 0, 0), col = col)
+  }
+}
+
+# calculate distribution of d based on t-distribution
+calc_d_dist &lt;- function(x, N, ncp = 0) {
+  suppressWarnings({
+    # generates a lot of warnings sometimes
+    dt(x * sqrt(N / 2), df = (N * 2) - 2, ncp = ncp) * sqrt(N / 2)
+  })
+}
+
+
+# Set sample size per group and effect size d (assumes equal sample sizes per group)
+N &lt;- 40 # sample size per group for independent t-test
+d &lt;- 0.5 # please enter positive d only
+# Calculate non-centrality parameter - equals t-value from sample
+ncp &lt;- d * sqrt(N / 2)
+
+# # or Cumming, page 305
+# ncp &lt;- d / (sqrt((1 / N) + (1 / N)))
+
+# calc d-distribution
+x &lt;- seq(low_x, high_x, length = 10000) # create x values
+d_dist &lt;- calc_d_dist(x, N, ncp)
+
+# Set max Y
+y_max &lt;- max(d_dist) + 0.5
+
+crit_d &lt;- abs(qt(0.05 / 2, (N * 2) - 2)) / sqrt(N / 2)
+
+# Create base plot with no x-axis drawn
+plot(-10, xlim = c(low_x, high_x), ylim = c(0, y_max),
+     xlab = expression(&quot;Cohen's &quot; * italic(d)),
+     ylab = &quot;&quot;,
+     main = bquote(
+       paste(&quot;Distribution of observed effects sizes, N = 40, &quot;,
+             italic(d), &quot; = &quot;, .(d), &quot;, &quot;,
+             d[crit], &quot; = &quot;, .(round(crit_d, 2)))
+     ),
+     xaxt = &quot;n&quot;,   # disable default x-axis
+     yaxt = &quot;n&quot;   # disable default x-axis
+)
+
+# Add major ticks at each 0.5
+axis(side = 1, at = seq(low_x, high_x, by = 0.5), labels = TRUE, lwd = 1.5)
+
+# Add minor ticks at each 0.1 (no labels)
+axis(side = 1, at = seq(low_x, high_x, by = 0.1), labels = FALSE, tcl = -0.25)  # tcl controls tick length
+
+d_dist &lt;- dt(x * sqrt(N / 2), df = (N * 2) - 2, ncp = ncp) * sqrt(N / 2)
+lines(x, d_dist, col = &quot;black&quot;, type = &quot;l&quot;, lwd = 2)
+
+# Add type 1 error rate
+add_type1_error(N, &quot;right&quot;, ncp)
+add_type1_error(N, &quot;left&quot;, ncp)
+
+abline(v=d, lty = 2)
+
+```
+</pre>
+<div class="line"><span class="ln">413</span><span class="txt"></span></div>
+<div class="line"><span class="ln">414</span><span class="txt">This type of bias has been discussed extensively in the literature [@anderson_addressing_2017; @begg_operating_1994; @hedges_estimation_1984]. Both [@hedges_estimation_1984] as Taylor and Muller [<span class="ins">-</span>@taylor_bias_1996] have developed a statistical model that computes bias-adjusted effect size estimates when estimators are selected from a ‘censored’ or ‘truncated’ distribution. This method creates a model of what the full distribution would have looked like, and estimates the effect size if there was no selection bias. Anderson, Kelley, and Maxwell [-@anderson_addressing_2017] apply this method to compute an adjusted estimate of the noncentrality parameter, and use it to show how a<span class="del">-</span> priori power <span class="del">analysis</span><span class="ins">analyses</span> can be adjusted for selection bias.</span></div>
+<div class="line"><span class="ln">415</span><span class="txt"></span></div>
+<div class="line"><span class="ln">416</span><span class="txt">Gelman and Carlin [-@gelman2014] propose another approach to increase awareness of effect size inflation due to selection bias. They compute a ratio between the average absolute effect size estimates from statistically significant effects, and the assumed true effect size, which they refer to as a Type M (magnitude) error. Because Type M errors do not quantify error rates (i.e., the probability of an incorrect claim) but the bias in an estimator, we prefer Gelman and Carlin’s alternative term for Type M errors: the ‘exaggeration ratio’. The exaggeration ratio is a function of the statistical power of a test. When power is close to 100% all tests of true effects will be significant, no effect sizes are removed due to selection bias, and the exaggeration ratio will be 1, indicating that the design will in the long run yield unbiased effect size estimates. As power is practically always less than 100%, the exaggeration ratio will typically be larger than 1, indicating that effect sizes selected for statistical significance will be inflated. Altoè et al. [-@altoe_enhancing_2020] note that when power reaches at least 80% the average overestimation of the effect size tends to be just above 10%, which they consider practically negligible. As such, one may see the exaggeration ratio as a complementary perspective on the information conveyed by statistical power, shifting the focus from hypothesis testing to effect size estimation.</span></div>
+<div class="line"><span class="ln">417</span><span class="txt"></span></div>
+<div class="line"><span class="ln">418</span><span class="txt">The exaggeration ratio is computed based on properties of the design of the study, and the assumed true effect size. The design (e.g., the sample size, type of test, and the alpha level) <span class="del">determine</span><span class="ins">determines</span> the critical effect size, or the smallest effect size that can be statistically significant. The assumed true effect size determines<span class="del">how inflated</span> the <span class="del">average</span><span class="ins">extent to which</span> effect <span class="del">size in statistically significant results</span><span class="ins">sizes that are selected for significance</span> will be <span class="del">on average, with the</span><span class="ins">inflated. The</span> smaller the assumed effect size, the larger the exaggeration ratio. The exaggeration ratio [@gelman2014] is not intended to correct individual effect sizes. If the average absolute unbiased effect size estimate is 0.5, and the average biased effect size estimate is 1, the estimated effect is on average 2 times larger than the true effect size. But this exaggeration ratio of 2 applies to the average effect size estimate, and not to any individual effect size. It is not correct to simply divide each observed effect size estimate by the exaggeration ratio and treat it as a bias-adjusted effect size estimate.</span></div>
+<div class="line"><span class="ln">419</span><span class="txt"></span></div>
+<div class="line"><span class="ln">420</span><span class="txt">Despite the fact that the authors never intended the exaggeration ratio to be used to adjust individual effect sizes, researchers have misused Type M errors for this purpose. In the following example, Shem-Tov et al. [-@shem-tov_can_2024] note that the Type M error rate quantifies an average inflation, but still misuse it to adjust the observed effect size: &quot;following the procedure proposed by Gelman and Carlin (2014), we estimate an average potential exaggeration ratio of 1.2 in the effect of enrollment to MIR on rearrests within one and four years. In other words, on average, our estimates might indicate that the impact of enrollment to MIR causes a reduction of 23.4 percentage points while the true effect is a reduction of 19.5 percentage points.&quot; Similarly, Gajendran et al.<span class="del">,</span> [-@gajendran_hidden_2022] write: &quot;the modest Type M exaggeration ratio of 1.27 indicates the possibility that the communication medium effect is overestimated by a factor of 1.27, which is inconsistent with the effect being an unlikely result.&quot; However, the average inflation is not the same as the inflation in any individual study, and the inflation might be much larger or smaller for this specific study.</span></div>
+<div class="line"><span class="ln">421</span><span class="txt"></span></div>
+<div class="line"><span class="ln">422</span><span class="txt">There are statistical approaches that <span class="del">adjust</span><span class="ins">perform a bias-adjustment on a single biased</span> effect size<span class="del">estimates for selection bias, such as likelihood based approaches</span> [@hedges_estimation_1984; @taylor_bias_1996]<span class="del">and *p*-uniform [@vanassen_metaanalysis_2015]</span>. The approaches developed by Hedges [-@hedges_estimation_1984] and Taylor and Muller [<span class="ins">-</span>@taylor_bias_1996] <span class="ins">attempt</span> to adjust effect size estimates for selection bias <span class="del">takes</span><span class="ins">by taking</span> the observed effect size<span class="del">as a biased estimator</span>, and based on a model for selection bias, <span class="del">computes</span><span class="ins">return</span> the maximum likelihood estimate for the effect size after correcting for bias. Anderson and colleagues [-@anderson_addressing_2017] have implemented this bias correction method in the BUCSS R package<span class="del">, and extended the approach for normally distributed data</span> to <span class="del">other statistical distributions. Although most other</span><span class="ins">provide a priori power analyses for</span> bias<span class="del">correction methods can only be used meta</span>-<span class="del">analytically (i.e., they need multiple</span><span class="ins">adjusted</span> effect <span class="del">sizes to correct for bias) the</span><span class="ins">size estimates. The</span> *p*-uniform technique developed by Van Assen and colleagues [-@vanassen_metaanalysis_2015] uses a similar model for selection bias as Hedges [-@hedges_estimation_1984], and <span class="del">can be performed on</span><span class="ins">will estimate an unbiased effect size estimate for</span> a single study. <span class="del">Note that BUCSS is aimed at sample size calculations, and does</span><span class="ins">Although this has</span> not <span class="del">compute bias-corrected effect sizes directly, but</span><span class="ins">been pointed out explicitly in</span> the <span class="del">non-centrality parameter that</span><span class="ins">literature,</span> the <span class="del">function returns can be used to compute a bias</span><span class="ins">corrections based on BUCSS and *p*</span>-<span class="del">corrected effect size estimate. These approaches</span><span class="ins">uniform are practically identical</span> (<span class="del">as</span><span class="ins">see</span> the <span class="del">simulations below will show</span><span class="ins">supplemental material</span>) <span class="del">allow researchers to adjust observed effect sizes for bias corrected effect sizes</span><span class="ins">and therefore we will only discuss adjustments using *p*-uniform</span>.</span></div>
+<div class="line"><span class="ln">423</span><span class="txt"></span></div>
+<div class="line"><span class="ln">424</span><span class="txt"><span class="del">In addition to bias-corrected effect size estimates, researchers can also report the critical effect size [@perugini_benefits_2025]. The critical effect size is the smallest effect size that could reach statistical significance. Just as the Type M error, it is computed based on the study design, and not the study results. The critical effect size similarly increases awareness about how selection bias inflates effect size estimated from studies selected for statistical significance, but it also warns against interpreting non-significant results as the absence of an effect by pointing out the range</span><span class="ins">To illustrate why this misuse</span> of<span class="del">non-zero effect sizes that would never yield a statistically significant result. Critical effect sizes are also worth reporting in studies with very high statistical power, where the</span> Type M <span class="del">error would not be reported because it is negligible. In studies with extremely high power, the critical effect size will make it clear that even trivially small effects will be statistically significant. This can make researchers reflect on which effects are large enough</span><span class="ins">errors fails</span> to <span class="del">be meaningful.</span></div>
+<div class="line"><span class="ln">425</span><span class="txt"></span></span></div>
+<div class="line"><span class="ln">426</span><span class="txt"><span class="del"></span></div>
+<div class="line"><span class="ln">427</span><span class="txt"></span></span></div>
+<div class="line"><span class="ln">428</span><span class="txt"><span class="del">## **Simulating</span><span class="ins">adequately adjust observed</span> effect <span class="del">size inflation and correction methods**</span></div>
+<div class="line"><span class="ln">429</span><span class="txt"></span></span></div>
+<div class="line"><span class="ln">430</span><span class="txt"><span class="del"></span></div>
+<div class="line"><span class="ln">431</span><span class="txt"></span></span></div>
+<div class="line"><span class="ln">432</span><span class="txt"><span class="del">We</span><span class="ins">sizes for bias we</span> simulated <span class="del">10</span><span class="ins">100</span>.000 independent *t*-tests with a true effect size of *d* = 0.5, 40 observations <span class="del">per group, equal variances, and an alpha level of 0.05. We also computed adjusted effect size estimates using *p*-uniform and the bias and uncertainty-corrected sample size procedure (BUCSS). Note that the BUCSS R package returns a non-centrality parameter, which was transformed into a bias-adjusted effect size estimate. Van Aert et al. [-@aert_publication_2019, p. 16] note how the likelihood-based procedure implemented by Anderson and colleagues [-@anderson_addressing_2017] is 'based on similar methodology' as *p*-uniform. The bias and uncertainty-corrected sample size procedure (BUCSS) by Anderson and colleagues does not return an adjusted value if the effect size estimate is negative. *P*-uniform does return negative estimates. When applying *p*-uniform in its intended context of meta-analyses, the recommendation is to replace negative estimates by zero [@aert_publication_2019]. This solution is less ideal when analyzing single studies because too many estimates will be set to 0, which negatively biases the estimate. Instead, we follow Anderson and colleagues [-@anderson_addressing_2017] and remove negative estimates. Although we do not think this has been pointed out before in the literature, the corrections based on BUCSS and *p*-uniform are practically identical.</span></div>
+<div class="line"><span class="ln">433</span><span class="txt"></span></span></div>
+<div class="line"><span class="ln">434</span><span class="txt"><span class="del"></span></div>
+<div class="line"><span class="ln">435</span><span class="txt"></span></span></div>
+<div class="line"><span class="ln">436</span><span class="txt"><span class="del">As noted above, the exaggeration ratio should not be used to adjust individual effect sizes, and was not developed for such a use. The distribution in the top-right pane of @fig-simulation-distributions shows why this approach fails. Large observed effects are adjusted downward a lot, but smaller observed effect sizes are adjusted downward less</span><span class="ins">per group, equal variances</span>, and <span class="del">not sufficiently. Where the average inflation can be used to educate researchers about the risk</span><span class="ins">an alpha level</span> of <span class="del">inflation</span><span class="ins">0.05</span>, <span class="del">it can't be used</span><span class="ins">and removed all non-significant test results</span> to <span class="del">adjust individual effect sizes for</span><span class="ins">introduce</span> selection bias. <span class="ins">The distribution in the left pane</span> @fig-simulation-distributions shows the effect size distribution of observed effect sizes when only statistically significant results are available (<span class="del">top</span><span class="ins">green), and the missing non</span>-<span class="del">left pane</span><span class="ins">significant results (grey</span>).<span class="del">The total unbiased dataset would lead to a symmetrical distribution of observed effect sizes around 0.5.</span> Given the sample size, only effects larger than *d* = <code class="icode">r round(critical_d, 3)</code> will be statistically significant, and all effects smaller than *d* = <code class="icode">r round(critical_d, 3)</code> are missing from the truncated distribution. The <span class="del">BUCSS and</span><span class="ins">middle pane shows the distribution if individual effect sizes are adjusted by the exaggeration ratio. Large observed effects are adjusted downward a lot, but smaller observed effect sizes not sufficiently adjusted downward. In the right distribution, we compute adjusted effect sizes based on</span> *p*-uniform<span class="del">methods lead to practically identical distributions</span><span class="ins">. When applying *p*-uniform in its intended context</span> of <span class="del">adjusted effect size</span><span class="ins">meta-analyses, users are recommended to replace negative</span> estimates <span class="del">(bottom panes)</span><span class="ins">by zero [@aert_publication_2019]. This solution is less ideal when analyzing single studies because too many estimates will be set to 0, which negatively biases the estimate</span>. <span class="ins">Instead, we follow the recommendation by Anderson and colleagues [-@anderson_addressing_2017] and remove negative estimates in @fig-simulation-distributions.</span> The <span class="ins">bias-</span>adjusted effect size estimates <span class="ins">from *p*-uniform</span> do not perfectly match the unbiased distribution, but provide estimates that are on average much closer to the true effect size. This <span class="del">demonstrated</span><span class="ins">simulation shows</span> that <span class="del">it is more useful to report bias-adjusted effect size estimates using for example</span><span class="ins">although</span> the <span class="del">*p*-uniform technique, than</span><span class="ins">exaggeration ratio can be used</span> to <span class="del">report</span><span class="ins">educate researchers about</span> the <span class="del">Type M error - or even worse</span><span class="ins">risk of inflation</span>, <span class="del">misuse the exaggeration ratio</span><span class="ins">it can't be used</span> to adjust <span class="del">observed</span><span class="ins">individual</span> effect sizes <span class="ins">for selection bias, as some researchers in the literature have done</span>.</span></div>
+<div class="line"><span class="ln">437</span><span class="txt"></span></div>
+<pre class="codeblock">
+```{r}
+#| label: fig-simulation-distributions
+#| fig-cap: &quot;Comparison of the observed<span class="del">and bias-corrected</span> effect <span class="del">size yielded by BUCSS</span><span class="ins">sizes (green)</span>, <span class="del">p</span><span class="ins">with the grey area illustrating missing non</span>-<span class="del">uniform</span><span class="ins">significant values)</span>, and <span class="ins">bias-adjusted effect sizes using two methods:</span> the <span class="ins">Type M</span> exaggeration ratio <span class="del">,</span><span class="ins">(yellow)</span> and <span class="del">the statistical power of the test</span><span class="ins">*p*-uniform (brown)</span>.&quot;
+#| warning: false
+#| message: false
+#| echo: false
+#| fig-align: center
+#| fig-width: 8
+#| fig-height: 6
+
+# <span class="ins">#</span> Parameters
+<span class="ins">#</span> n_sim &lt;- <span class="del">10000</span><span class="ins">100000
+</span>
+<span class="ins">#</span> show_progress &lt;- TRUE
+# 
+<span class="del">set to FALSE to disable progress bar</span><span class="ins">#</span> # Initialize progress bar if needed
+<span class="ins">#</span> if (show_progress) {
+<span class="ins">#</span>   pb &lt;- progress_bar$new(
+<span class="ins">#</span>     format = &quot;  Simulating [:bar] :percent in :elapsed&quot;,
+<span class="ins">#</span>     total = n_sim, clear = FALSE, width = 60
+<span class="ins">#</span>   )
+<span class="ins">#</span> }
+
+# # Run simulations
+# sim_results &lt;- lapply(seq_len(n_sim), function(i) {
+#   if (show_progress) pb$tick()
+#   compare_effect_size_corrections(
+#     n = 40,
+#     mu1 = 1,
+#     mu2 = 0,
+#     sd = 2,
+#     sided = 1,
+#     exact = FALSE,
+#     retrodesign_d = NULL
+#   )
+# })
+
+# saveRDS(sim_results, &quot;n=<span class="del">20d</span><span class="ins">40d</span>=0.5sim=<span class="del">1000</span><span class="ins">100000</span>.rds&quot;)
+# to save time we stored the simulation results, and read them back in.
+sim_results &lt;- readRDS(&quot;n=40d=0.5sim=<span class="del">1000</span><span class="ins">100000</span>.rds&quot;)
+# Combine into a single data frame
+final_sim_table &lt;- bind_rows(sim_results)
+
+# Store dataframe for only significant results, so extreme bias based on p &lt; .05
+significant_results &lt;- final_sim_table %&gt;%
+  filter(p_value &lt; 0.05)
+
+# Below we first have the code for the plot without bias. Not used in the manuscript
+# Reshape the data to long format
+<span class="del">#</span>long_data &lt;- final_sim_table %&gt;%<span class="del">#</span>
+  select(observed_d,<span class="del">BUCSS, puniform, type_m) %&gt;%
+</span>
+<span class="del">#   pivot_longer(cols = everything(), names_to = &quot;variable&quot;, values_to = &quot;value&quot;)
+</span>
+<span class="del"># long_data &lt;- long_data %&gt;%
+</span>
+<span class="del">#   mutate(value = ifelse(variable == &quot;puniform&quot; &amp; value &lt; 0, NA, value)) %&gt;%
+</span>
+<span class="del">#     mutate(variable_label = recode(variable,
+</span>
+<span class="del">#                                  &quot;puniform&quot; = &quot;P-uniform&quot;,
+</span>
+<span class="del">#                                  &quot;type_m&quot; = &quot;Type M&quot;,
+</span>
+<span class="del">#                                  &quot;observed_d&quot; = &quot;Observed d&quot;,
+</span>
+<span class="del">#                                  &quot;BUCSS&quot; = &quot;BUCSS&quot;))
+</span>
+<span class="del"># 
+</span>
+<span class="del"># long_data$variable_label &lt;- factor(long_data$variable_label,
+</span>
+<span class="del">#                                    levels = c(&quot;Observed d&quot;, &quot;Type M&quot;, &quot;BUCSS&quot;, &quot;P-uniform&quot;))
+</span>
+<span class="del"># 
+</span>
+<span class="del"># 
+</span>
+<span class="del"># 
+</span>
+<span class="del"># ggplot(long_data, aes(x = value, fill = variable_label, color = variable_label)) +
+</span>
+<span class="del">#   geom_histogram(aes(y = ..density..), position = &quot;identity&quot;, alpha = 0.5, bins = 40) +
+</span>
+<span class="del">#   geom_density(alpha = 0.3, size = 1) +
+</span>
+<span class="del">#   facet_wrap(~ variable_label, scales = &quot;free&quot;) +
+</span>
+<span class="del">#   theme_minimal(base_size = 14) +
+</span>
+<span class="del">#   theme(
+</span>
+<span class="del">#     panel.grid.major = element_blank(),
+</span>
+<span class="del">#     panel.grid.minor = element_blank(),
+</span>
+<span class="del">#     legend.position = &quot;bottom&quot;) +
+</span>
+<span class="del">#   xlim(-0.5, 1.5) +
+</span>
+<span class="del">#   ylim(0, 3) +
+</span>
+<span class="del">#   labs(
+</span>
+<span class="del">#     title = &quot;Observed and corrected effect size distributions&quot;,
+</span>
+<span class="del">#     x = &quot;Cohen's d effect size&quot;,
+</span>
+<span class="del">#     y = &quot;Density&quot;,
+</span>
+<span class="del">#     fill = &quot;Distribution&quot;,
+</span>
+<span class="del">#     color = &quot;Distribution&quot;
+</span>
+<span class="del">#   ) +
+</span>
+<span class="del">#   scale_fill_manual(values = c(
+</span>
+<span class="del">#     &quot;P-uniform&quot; = &quot;#bb7125&quot;,
+</span>
+<span class="del">#     &quot;Type M&quot; = &quot;#ffdd00&quot;,
+</span>
+<span class="del">#     &quot;Observed d&quot; = &quot;#00978d&quot;,
+</span>
+<span class="del">#     &quot;BUCSS&quot; = &quot;#1c4286&quot;
+</span>
+<span class="del">#   )) +
+</span>
+<span class="del">#   scale_color_manual(values = c(
+</span>
+<span class="del">#     &quot;P-uniform&quot; = &quot;#bb7125&quot;,
+</span>
+<span class="del">#     &quot;Type M&quot; = &quot;#ffdd00&quot;,
+</span>
+<span class="del">#     &quot;Observed d&quot; = &quot;#00978d&quot;,
+</span>
+<span class="del">#     &quot;BUCSS&quot; = &quot;#1c4286&quot;
+</span>
+<span class="del">#   ))
+</span>
+<span class="del">
+</span>
+<span class="del"># Now for selected p &lt; .05 results
+</span>
+<span class="del">long_data &lt;- significant_results %&gt;%
+</span>
+<span class="del">  select(observed_d, BUCSS,</span> puniform, type_m) %&gt;%
+  pivot_longer(cols = everything(), names_to = &quot;variable&quot;, values_to = &quot;value&quot;)
+long_data &lt;- long_data %&gt;%
+  mutate(value = ifelse(variable == &quot;puniform&quot; &amp; value &lt; 0, NA, value)) %&gt;%
+  mutate(variable_label = recode(variable,
+                                 &quot;puniform&quot; = &quot;<span class="del">P</span><span class="ins">p</span>-uniform&quot;,
+                                 &quot;type_m&quot; = &quot;Type M&quot;,
+                                 &quot;observed_d&quot; = &quot;Observed d&quot;<span class="del">,
+</span>
+<span class="del">                                 &quot;BUCSS&quot; = &quot;BUCSS&quot;</span>))
+
+long_data$variable_label &lt;- factor(long_data$variable_label,
+                                   levels = c(&quot;Observed d&quot;, &quot;Type M&quot;, &quot;<span class="del">BUCSS&quot;, &quot;P</span><span class="ins">p</span>-uniform&quot;))<span class="del">long_data &lt;- long_data %&gt;%
+</span>
+<span class="del">  mutate(value = ifelse(variable == &quot;P Uniform&quot; &amp; value &lt; 0, NA, value))</span>
+
+ggplot(long_data, aes(x = value, fill = variable_label, color = variable_label)) +
+
+  <span class="ins"># Histogram for Type M and P-uniform</span>
+  geom_histogram(
+    <span class="ins">data = dplyr::filter(long_data, variable_label != &quot;Observed d&quot;),</span>
+    aes(y = ..density..),
+    position = &quot;identity&quot;, alpha = 0.5,
+    <span class="del">bins</span><span class="ins">binwidth = 0.05, boundary</span> = <span class="del">40</span><span class="ins">-0.5</span>
+  ) +
+
+  <span class="del">geom_density</span><span class="ins"># Histogram for Observed d, conditional coloring
+</span>
+<span class="ins">  geom_histogram(
+</span>
+<span class="ins">    data = dplyr::filter(long_data, variable_label == &quot;Observed d&quot;),
+</span>
+<span class="ins">    aes(
+</span>
+<span class="ins">      y = ..density..,
+</span>
+<span class="ins">      fill = after_stat(ifelse(x &lt; 0.445, &quot;Observed d (grey)&quot;, &quot;Observed d&quot;)),
+</span>
+<span class="ins">      color = after_stat</span>(<span class="ins">ifelse(x &lt; 0.445, &quot;Observed d (grey)&quot;, &quot;Observed d&quot;))
+</span>
+<span class="ins">    ),
+</span>
+<span class="ins">    position = &quot;identity&quot;,</span> alpha = 0.<span class="del">3</span><span class="ins">5</span>,
+    <span class="del">size</span><span class="ins">binwidth = 0.05, boundary = -0.5,
+</span>
+<span class="ins">    show.legend</span> = <span class="del">1</span><span class="ins">FALSE</span>
+  ) +
+
+  facet_wrap(~ variable_label, scales = &quot;free&quot;) +
+  theme_minimal(base_size = 14) +
+  theme(
+    panel.grid.major = element_blank(),
+    panel.grid.minor = element_blank(),
+    legend.position = &quot;<span class="del">bottom</span><span class="ins">none</span>&quot;<span class="ins">,
+</span>
+<span class="ins">    axis.title.y = element_blank(),
+</span>
+<span class="ins">    axis.text.y  = element_blank(),
+</span>
+<span class="ins">    axis.ticks.y = element_blank()</span>
+  ) +
+  xlim(-0.5, 1.5) +
+  ylim(0, <span class="del">3</span><span class="ins">1.8</span>) +
+  labs(
+<span class="del">title = &quot;Observed and corrected effect size distributions&quot;,</span>    
+    x = &quot;Cohen's d effect size&quot;,
+    y = <span class="del">&quot;Density&quot;,
+</span>
+<span class="del">    fill = &quot;Distribution&quot;,
+</span>
+<span class="del">    color = &quot;Distribution&quot;</span><span class="ins">NULL</span>
+  ) +
+  scale_fill_manual(
+    values = c(
+      &quot;P-uniform&quot; = &quot;#bb7125&quot;,
+      &quot;Type M&quot; = &quot;#ffdd00&quot;,
+      &quot;Observed d&quot; = &quot;#00978d&quot;,
+      &quot;<span class="del">BUCSS</span><span class="ins">Observed d (grey)</span>&quot; = &quot;<span class="del">#1c4286</span><span class="ins">grey70&quot;
+</span>
+<span class="ins">    ),
+</span>
+<span class="ins">    breaks = c(&quot;Type M&quot;, &quot;p-uniform&quot;, &quot;Observed d</span>&quot;)
+  ) +
+  scale_color_manual(
+    values = c(
+      &quot;<span class="del">P</span><span class="ins">p</span>-uniform&quot; = &quot;#bb7125&quot;,
+      &quot;Type M&quot; = &quot;#ffdd00&quot;,
+      &quot;Observed d&quot; = &quot;#00978d&quot;,
+      &quot;<span class="del">BUCSS</span><span class="ins">Observed d (grey)</span>&quot; = &quot;<span class="del">#1c4286</span><span class="ins">grey70</span>&quot;
+    )<span class="del">)
+</span>
+<span class="del">
+</span>
+<span class="del">
+</span>
+<span class="del"># mean(final_sim_table$observed_d, na.rm = TRUE)
+</span>
+<span class="del"># mean(final_sim_table$BUCSS, na.rm = TRUE)
+</span>
+<span class="del"># mean(final_sim_table$puniform, na.rm = TRUE)
+</span>
+<span class="del"># mean(final_sim_table$type_m, na.rm = TRUE)
+</span>
+<span class="del"># 
+</span>
+<span class="del"># mean(significant_results$observed_d, na.rm = TRUE)
+</span>
+<span class="del"># mean(significant_results$BUCSS, na.rm = TRUE)
+</span>
+<span class="del"># mean(significant_results$puniform</span>,
+    <span class="del">na.rm</span><span class="ins">breaks</span> = <span class="del">TRUE)
+</span>
+<span class="del"># mean(significant_results$puniform[significant_results$puniform &gt; 0], na.rm = TRUE)
+</span>
+<span class="del"># Set negative p-uniform values to 0
+</span>
+<span class="del">puniform_pos &lt;- significant_results$puniform
+</span>
+<span class="del">puniform_pos[puniform_pos &lt; 0] &lt;- 0
+</span>
+<span class="del"># mean(puniform_pos, na.rm = TRUE)
+</span>
+<span class="del"># Set negative p-uniform values to NA
+</span>
+<span class="del">puniform_NA &lt;- significant_results$puniform
+</span>
+<span class="del">puniform_NA[puniform_NA &lt; 0] &lt;- NA
+</span>
+<span class="del"># mean(puniform_NA, na.rm = TRUE)
+</span>
+<span class="del"># mean(significant_results$type_m, na.rm = TRUE)
+</span>
+<span class="del">
+</span>
+<span class="del">
+</span>
+<span class="del">```
+</pre>
+<div class="line"><span class="ln">721</span><span class="txt"></span></span></div>
+<div class="line"><span class="ln">722</span><span class="txt"><span class="del"></span></div>
+<div class="line"><span class="ln">723</span><span class="txt"></span></span></div>
+<div class="line"><span class="ln">724</span><span class="txt">[-@fig-correction-comparison plots the observed Cohen's *d* and bias-corrected Cohen's *d* for independent *t*-tests with true effects from *d* = 0 to *d* = 1, 40 participants per group, and an alpha level of 0.05, with observed effect sizes on the y-axis, and corrected effect size estimates on the x-axis. The power of the test (which is a function of the effect size) is also plotted, and we see that when power is high-]<span class="ins">c</span>(<span class="del">when Cohen's *d* is large, e.g., from *d* = 0.75 onward) the observed Cohen's *d* is practically equal to the corrected Cohen's *d*. This is because there is very little selection bias, as most tests yield statistically significant results, and the observed effect size is not inflated.</span></div>
+<div class="line"><span class="ln">725</span><span class="txt"></span></span></div>
+<div class="line"><span class="ln">726</span><span class="txt"><span class="del"></span></div>
+<div class="line"><span class="ln">727</span><span class="txt"></span></span></div>
+<pre class="codeblock">
+<span class="del">```{r}
+</span>
+<span class="del">#| label: fig-correction-comparison
+</span>
+<span class="del">#| fig-cap:</span>&quot;<span class="del">Comparison of the corrected effect sizes for observed Cohen's d effect sizes from 0 to 1 using BUCSS, p-uniform, and</span>Type M<span class="del">errors.</span>&quot;<span class="del">#| warning: false
+</span>
+<span class="del">#| message: false
+</span>
+<span class="del">#| echo: false
+</span>
+<span class="del">#| fig-align: center
+</span>
+<span class="del">
+</span>
+<span class="del"># Loop over mu1 from 0 to 1 in steps of 0.1
+</span>
+<span class="del">mu1_values &lt;- seq(0, 1, by = 0.01)
+</span>
+<span class="del">
+</span>
+<span class="del">all_results &lt;- lapply(mu1_values, function(m1) {
+</span>
+<span class="del">  res &lt;- compare_effect_size_corrections(
+</span>
+<span class="del">    n = 40,
+</span>
+<span class="del">    mu1 = m1,
+</span>
+<span class="del">    mu2 = 0</span>,<span class="del">sd = 1,
+</span>
+<span class="del">    sided = 2,
+</span>
+<span class="del">    exact = TRUE,
+</span>
+<span class="del">    retrodesign_d = NULL)
+</span>
+<span class="del">  res$mu1 &lt;- m1
+</span>
+<span class="del">  res
+</span>
+<span class="del">})
+</span>
+<span class="del">
+</span>
+<span class="del"># Combine all into one table
+</span>
+<span class="del">final_table &lt;- bind_rows(all_results) %&gt;%
+</span>
+<span class="del">  select(mu1, everything())
+</span>
+<span class="del">
+</span>
+<span class="del"># Reshape the data to long format
+</span>
+<span class="del">plot_data &lt;- final_table %&gt;%
+</span>
+<span class="del">  filter(significant) %&gt;%  # Only include significant results
+</span>
+<span class="del">  pivot_longer(
+</span>
+<span class="del">    cols = c(power, BUCSS, puniform, type_m),
+</span>
+<span class="del">    names_to =</span> &quot;<span class="del">Method</span><span class="ins">p-uniform</span>&quot;,<span class="del">values_to =</span> &quot;<span class="del">Adjusted_d</span><span class="ins">Observed d</span>&quot;<span class="ins">)</span>
+  )
+
+<span class="del"># Recode method labels for consistency
+</span>
+<span class="del">plot_data &lt;- plot_data %&gt;%
+</span>
+<span class="del">  mutate(Method = recode(Method,
+</span>
+<span class="del">                         &quot;puniform&quot; = &quot;P-uniform&quot;,
+</span>
+<span class="del">                         &quot;type_m&quot; = &quot;Type M&quot;,
+</span>
+<span class="del">                         &quot;BUCSS&quot; = &quot;BUCSS&quot;,
+</span>
+<span class="del">                         &quot;power&quot; = &quot;Power&quot;))
+</span>
+<span class="del">
+</span>
+<span class="del"># Set factor levels to control legend and line order
+</span>
+<span class="del">plot_data$Method &lt;- factor(plot_data$Method,
+</span>
+<span class="del">                           levels = c(&quot;Power&quot;, &quot;Type M&quot;, &quot;P-uniform&quot;, &quot;BUCSS&quot;))
+</span>
+<span class="del">
+</span>
+<span class="del"># Plot
+</span>
+<span class="del">ggplot(plot_data, aes(x = observed_d, y = Adjusted_d, color = Method, linetype = Method)) +
+</span>
+<span class="del">  geom_abline(slope = 1, intercept = 0, linetype = &quot;dashed&quot;, color = &quot;gray80&quot;, linewidth = 1) +
+</span>
+<span class="del">  geom_line(linewidth = 1.7) +
+</span>
+<span class="del">  scale_color_manual(values = c(
+</span>
+<span class="del">    &quot;P-uniform&quot; = &quot;#bb7125&quot;,
+</span>
+<span class="del">    &quot;Type M&quot; = &quot;#ffdd00&quot;,
+</span>
+<span class="del">    &quot;Power&quot; = &quot;#00978d&quot;,
+</span>
+<span class="del">    &quot;BUCSS&quot; = &quot;#1c4286&quot;
+</span>
+<span class="del">  )) +
+</span>
+<span class="del">  scale_linetype_manual(values = c(
+</span>
+<span class="del">    &quot;Power&quot; = &quot;solid&quot;,
+</span>
+<span class="del">    &quot;Type M&quot; = &quot;solid&quot;,
+</span>
+<span class="del">    &quot;P-uniform&quot; = &quot;solid&quot;,
+</span>
+<span class="del">    &quot;BUCSS&quot; = &quot;dotted&quot;
+</span>
+<span class="del">  )) +
+</span>
+<span class="del">  scale_x_continuous(limits = c(0, 1)) +
+</span>
+<span class="del">  scale_y_continuous(limits = c(0, 1)) +
+</span>
+<span class="del">  coord_fixed(ratio = 1) +
+</span>
+<span class="del">  labs(
+</span>
+<span class="del">    title = &quot;Bias-Corrected Estimates vs. Observed d&quot;,
+</span>
+<span class="del">    x = &quot;Cohen's d&quot;,
+</span>
+<span class="del">    y = &quot;Corrected Cohen's d and Power&quot;,
+</span>
+<span class="del">    color = NULL,
+</span>
+<span class="del">    linetype = NULL
+</span>
+<span class="del">  ) +
+</span>
+<span class="del">  theme_minimal(base_size = 14) +
+</span>
+<span class="del">  labs(color = NULL, fill = NULL, linetype = NULL) +
+</span>
+<span class="del">  theme(
+</span>
+<span class="del">    legend.position = &quot;bottom&quot;)
+</span>
+<span class="del">
+</span>
+```
+</pre>
+<div class="line"><span class="ln">880</span><span class="txt"></span></div>
+<div class="line"><span class="ln">881</span><span class="txt"><span class="del">As the observed</span><span class="ins">All approaches to adjust</span> effect <span class="del">size becomes smaller, power is lower, selection</span><span class="ins">sizes for</span> bias <span class="del">is larger</span><span class="ins">due to selective reporting rely on overly simplistic models of bias, depend on strong assumptions that are almost always violated</span>, and<span class="del">the corrected effect sizes become much smaller than the observed effect sizes</span> for<span class="del">the BUCSS and *p*-uniform methods. We again see that</span> these <span class="del">two methods yield basically the same corrected</span><span class="ins">reasons, bias-adjusted effect size estimates rarely correspond to empirically observed</span> effect sizes <span class="ins">from unbiased studies [@kvarvenComparingMetaanalysesPreregistered2020]</span>. <span class="del">In this testing scenario the critical</span><span class="ins">These problems are even more pronounced when a bias-adjusted</span> effect size <span class="ins">estimate</span> is <span class="del">*d* = <code class="icode">r round(critical_d, 3)</code>, which means effects smaller than this value will not yield</span><span class="ins">calculated for</span> a <span class="del">statistically significant result, and the correction methods only start</span><span class="ins">single effect size due</span> to <span class="ins">the large variability in a single effect size</span> estimate<span class="del">positive effects</span><span class="ins">. Bias-adjusted effect size estimates that differ substantially</span> from <span class="del">observed</span><span class="ins">the unadjusted</span> effect <span class="del">sizes of *d* = 0.52, as can</span><span class="ins">size should not</span> be <span class="del">seen in</span><span class="ins">regarded as</span> the <span class="del">plot. Again</span><span class="ins">true unbiased effect size</span>, <span class="del">the yellow line visualizing</span><span class="ins">but as</span> a <span class="del">correction based on the exaggeration ratio illustrates why it should not be used</span><span class="ins">strong motivation</span> to <span class="del">correct individual effects</span><span class="ins">perform an unbiased replication study</span>.</span></div>
+<div class="line"><span class="ln">882</span><span class="txt"></span></div>
+<div class="line"><span class="ln">883</span><span class="txt"><span class="del">The exaggeration ratio assumes extreme</span><span class="ins">Reporting the critical effect size might provide an alternative approach to increase awareness about effect size inflation due to</span> selection bias<span class="del">where only statistically significant effects are available, which might be</span><span class="ins">. Reporting</span> a <span class="del">reasonable expectation in some literatures</span><span class="ins">critical effect sizes has benefits over reporting the exaggeration ratio</span> [<span class="del">e</span><span class="ins">@perugini_benefits_2025]</span>. <span class="del">g</span><span class="ins">The critical effect size is the smallest effect size that could reach statistical significance</span>. <span class="ins">As the exaggeration ratio</span>, [-@scheel_excess_2021]-]<span class="ins">it is computed based on the study design. The critical effect size highlights how selecting statistically significant results will remove all effect sizes smaller than the critical effect size. Reporting a critical effect size does not provide a single numerical estimate of how much the effect is inflated</span>, <span class="del">while there are more</span><span class="ins">which prevents the misinterpretation of the exaggeration ratio that we observed. Critical effect sizes also warn against interpreting</span> non-significant results <span class="del">published in other other literatures [e.g.</span><span class="ins">as the absence of an effect</span>, [-@mesquida_publication_2023a]. The only way to ensure unbiased-]<span class="ins">as they highlight that there is a range of true effects below the critical</span> effect size <span class="del">estimates is for researchers</span><span class="ins">that would leas</span> to <span class="del">report all</span><span class="ins">non-significant</span> results<span class="del">that</span><span class="ins">. And finally, critical effect sizes</span> are <span class="del">obtained</span><span class="ins">also useful in studies with very high statistical power. In such studies</span>,<span class="del">regardless of</span> the <span class="del">significance level of test results. This can</span><span class="ins">exaggeration ratio would</span> be <span class="del">achieved by reporting all studies in a public registry</span><span class="ins">negligible</span>, <span class="del">or by publishing research as a Registered Report</span><span class="ins">but the critical effect size would increase awareness that even trivially small effects will be statistically significant, which will make researchers reflect on which effects are large enough to be meaningful</span>.</span></div>
+<div class="line"><span class="ln">884</span><span class="txt"></span></div>
+<h3>The Use of Type S and M Error in an “Imperfect” Science</h3>
+<div class="line"><span class="ln">886</span><span class="txt"></span></div>
+<pre class="codeblock">
+```{r}
+#| include: false
+#| label: imperfect_science_calc
+
+pwr_res &lt;- pwr.t.test(n = 20, d = 0.4, type = &quot;two.sample&quot;, alternative = &quot;two.sided&quot;)
+
+res_imperfect_science &lt;- PRDA::prospective(
+  effect_size = 0.4,
+  power = 0.23,
+  B = 100000,
+  test_method = &quot;two_sample&quot;)
+
+```
+</pre>
+<div class="line"><span class="ln">900</span><span class="txt"></span></div>
+<div class="line"><span class="ln">901</span><span class="txt">Although Type S and M errors might not be particularly informative to report in a result section, given the more informative alternatives (i.e., minimum-effect tests and bias-corrected effect size estimates), they may still be valuable as a tool to reflect on the problems that emerge when studies are underpowered and/or selectively reported. Due to resource constraints, researchers may sometimes perform studies with very low power for the main effect of interest. Consider a PhD student who can at most collect 20 participants per group for an independent two-sided *t*-test, and expects a true effect size of *d* = 0.4. An a priori power analysis reveals that the statistical power is a mere <code class="icode">r 100*round(pwr_res$power, 2)</code>%. With such a high probability of uninformative results, one might argue that the study should not be performed. However, the study is part of a grant proposal that funds the research of the PhD student, and their supervisor wants to complete the promised data collection, regardless of the low statistical power. Under these suboptimal conditions the student could reflect on the Type S and M error rates in a preregistration. They could <span class="del">point out that the effect size estimate has high uncertainty</span><span class="ins">compute a Type S error</span>, <span class="ins">which indicates</span> that there is <span class="ins">still</span> a probability of <code class="icode">r 100*round(res_imperfect_science$prospective_res$typeS, 3)</code>%<span class="del">.</span> that a statistically significant effect<span class="del">is</span> in the wrong direction <span class="ins">is observed</span>. Perhaps more informatively, the PhD includes the Type M error, warning readers that statistically significant effects will on average be inflated with a ratio of <code class="icode">r round(res_imperfect_science$prospective_res$typeM, 2)</code>, meaning that on average any significant effect would be overestimated by 100%. This should make researchers aware of the fact that due to the underpowered nature of the study, the effect size estimate can not be taken at face value, especially if the effect size will only be interpreted if it is statistically significant.</span></div>
+<div class="line"><span class="ln">902</span><span class="txt"></span></div>
+<pre class="codeblock">
+<span class="ins">```{r}
+</span>
+<span class="ins">#| include: false
+</span>
+<span class="ins">#| label: imperfect_science_example
+</span>
+<span class="ins">
+</span>
+<span class="ins"># critical value from summary statistics for a design with 80% power for a d = 0.5
+</span>
+<span class="ins">m1 &lt;- 0.5
+</span>
+<span class="ins">m2 &lt;- 0
+</span>
+<span class="ins">sd1 &lt;- 1
+</span>
+<span class="ins">sd2 &lt;- 1
+</span>
+<span class="ins">n1 &lt;- 64
+</span>
+<span class="ins">n2 &lt;- 64
+</span>
+<span class="ins">
+</span>
+<span class="ins">imperfect_science_example_critical_es &lt;- critical_t2s(m1 = m1, m2 = m2, sd1 = sd1, sd2 = sd2, n1 = n1, n2 = n2)
+</span>
+<span class="ins">
+</span>
+<span class="ins">imperfect_science_example_prda_1 &lt;- PRDA::retrospective(
+</span>
+<span class="ins">    effect_size = 0.25, 
+</span>
+<span class="ins">    sample_n1 = n1, 
+</span>
+<span class="ins">    sample_n2 = n2, 
+</span>
+<span class="ins">    test_method = &quot;two_sample&quot;, 
+</span>
+<span class="ins">    alternative = &quot;two_sided&quot;
+</span>
+<span class="ins">  )
+</span>
+<span class="ins">
+</span>
+<span class="ins">imperfect_science_example_prda_2 &lt;- PRDA::retrospective(
+</span>
+<span class="ins">    effect_size = 0.15, 
+</span>
+<span class="ins">    sample_n1 = n1, 
+</span>
+<span class="ins">    sample_n2 = n2, 
+</span>
+<span class="ins">    test_method = &quot;two_sample&quot;, 
+</span>
+<span class="ins">    alternative = &quot;two_sided&quot;
+</span>
+<span class="ins">  )
+</span>
+<span class="ins">
+</span>
+<span class="ins">
+</span>
+<span class="ins">typeM_imperfect_science_1 &lt;- imperfect_science_example_prda_1$retrospective_res$typeM
+</span>
+<span class="ins">typeM_imperfect_science_2 &lt;- imperfect_science_example_prda_2$retrospective_res$typeM
+</span>
+<span class="ins">
+</span>
+<span class="ins">
+</span>
+<span class="ins">```</span>
+</pre>
+<div class="line"><span class="ln">974</span><span class="txt"></span></div>
+<div class="line"><span class="ln">975</span><span class="txt">A second use-case of a Type S and M error is in highly exploratory research where researchers opportunistically search for statistically significant effects without correcting for multiple comparisons. <span class="del">In</span><span class="ins">The effects that researchers explore in</span> such a scenario <span class="del">true effects might be</span><span class="ins">will include very small effect sizes. As the study is not designed to detect such</span> small <span class="ins">effects, statistical power</span> for <span class="del">some</span><span class="ins">many exploratory</span> tests <span class="ins">will be very low. For example, if researchers design a study to have 80% power for a Cohen's *d* of 0.5 in an independent two-sided *t*-test</span>, <span class="ins">only effects larger than *d* = <code class="icode">r round(imperfect_science_example_critical_es$dc, 3)</code> will be significant. Thus, when</span> researchers<span class="del">often</span> selectively focus on statistically significant effects<span class="del">, and</span> in <span class="ins">exploratory analyses,</span> the <span class="del">absence of strong theoretical predictions a skeptical peer might argue true effects might</span><span class="ins">resulting effect size estimates will, on average,</span> be <span class="ins">exaggerated. If researchers explore</span> small <span class="ins">effects where the true Cohen's *d* is 0</span>.<span class="del">Type S and M errors might be a way to communicate that exploratory analyses can be uninformative</span><span class="ins">25, or even 0.15</span>,<span class="del">and an exploratory search for</span> significant effects will on average <span class="del">lead to</span><span class="ins">be</span> exaggerated <span class="del">effect size estimates</span><span class="ins">by a factor of <code class="icode">r round(typeM_imperfect_science_1, 2)</code> or <code class="icode">r round(typeM_imperfect_science_2, 2)</code>, respectively</span>. <span class="del">This might help researchers realize that they should not make claims based on exploratory analyses as</span><span class="ins">Researchers could report the Type M</span> error <span class="del">rates can be</span><span class="ins">to warn readers that in addition to a</span> high <span class="del">. Instead</span><span class="ins">probability that significant effects are false positives</span>, <span class="ins">effect sizes are likely to be overestimated, and remind readers that</span> results from exploratory analyses should be treated as hypotheses that need to be severely tested in follow-up studies [@ditroilo_exploratory_2025].</span></div>
+<div class="line"><span class="ln">976</span><span class="txt"></span></div>
+<h3>The Use of Type S and M Errors in Statistics Education</h3>
+<div class="line"><span class="ln">978</span><span class="txt"></span></div>
+<div class="line"><span class="ln">979</span><span class="txt">Statistical misconceptions are widespread among researchers<span class="del">. We believe that some statistical misconceptions that we have heard can be mitigated by educating researchers about Type S and M errors. For example, the statement 'If the power of a study is low</span>,<span class="del">the main risk is failing to detect an effect that is actually present' overlooks the risk that a statistically significant effect from an underpowered study may be substantially overestimated. Another common misconception is that &quot;If the sample is small</span> and <span class="del">the result</span><span class="ins">selective reporting</span> is <span class="del">statistically significant, the effect must be large&quot;, which fails to acknowledge that the effect can be small, and that all effects selected for significance are substantially inflated</span><span class="ins">still too common</span>. Type S and M errors can serve as effective educational tools to challenge such misconceptions and promote a deeper reflection on the risks involved in statistical inference under conditions of low power and selective reporting. <span class="ins">The idea of a Type S error can help students grasp why it is incorrect to make directional claims after a two-sided test [@cho_twotailed_2013]. It also provides an opportunity to discuss why one-sided tests are necessary for directional hypotheses, and why it is good practice to perform two one-sided tests at α/2[@kaiser_directional_1960; @leventhal_directional_1996]. Rather than teaching Type S errors as statistical quantities to compute and report in a manuscript, instructors can use them to emphasize the importance of aligning statistical decisions with the inferential goals. Instructors may also introduce the idea that when power is very low, even the direction of a statistically significant result can be misleading. This message may resonate more with students than visualizing power curves.</span></span></div>
+<div class="line"><span class="ln">980</span><span class="txt"></span></div>
+<div class="line"><span class="ln">981</span><span class="txt">The <span class="del">idea</span><span class="ins">concept</span> of <span class="del">a Type S error can also help students grasp why it</span><span class="ins">an exaggeration ratio</span> is <span class="del">incorrect</span><span class="ins">especially helpful when introducing students</span> to <span class="del">make directional claims after a two-sided test [@cho_twotailed_2013]. The notion</span><span class="ins">the consequences</span> of <span class="ins">publication bias and selective reporting. Even without delving into the mathematical derivation, @fig-effectsize-distribution clearly shows how filtering for significance results in inflated effect size estimates. This can serve as</span> a <span class="del">Type S error provides an opportunity to discuss why one-sided tests are necessary</span><span class="ins">foundation</span> for <span class="del">directional hypotheses</span><span class="ins">teaching the idea that significant effects from studies with low power are not only uncertain</span>, <span class="del">and to introduce</span><span class="ins">but often systematically overestimated. The same idea can be taught through</span> the <span class="del">practice</span><span class="ins">concept</span> of <span class="del">two one-sided tests at α/2 to test effects in both directions</span><span class="ins">a critical effect size</span> [[-@kaiser_directional_1960; @leventhal_directional_1996-]<span class="ins">@perugini_benefits_2025</span>] <span class="ins">by illustrating how low power limits which effect sizes can be reliably distinguished from random noise</span>. <span class="del">Rather than teaching Type S errors</span><span class="ins">In follow-up courses, teachers could introduce the exaggeration ratio</span> as<span class="del">statistical quantities to compute and report in</span> a <span class="del">manuscript</span><span class="ins">function of the statistical power of the test</span>, <span class="del">instructors can use them to emphasize</span><span class="ins">and explain</span> the <span class="del">importance</span><span class="ins">limitations</span> of <span class="del">aligning statistical decisions</span><span class="ins">studies</span> with <span class="del">the inferential goals</span><span class="ins">low power</span>. <span class="del">Instructors may also introduce</span><span class="ins">We have often heard the statement 'If</span> the<span class="del">idea that when</span> power <span class="ins">of a study</span> is<span class="del">very</span> low,<span class="del">even</span> the <span class="del">direction of</span><span class="ins">main risk is failing to detect an effect that is actually present', which overlooks the risk that</span> a statistically significant <span class="ins">effect from a study with low power may be substantially overestimated. Another common misconception that Type M errors can prevent is the idea that &quot;If the sample is small and the</span> result <span class="ins">is statistically significant, the effect must be large&quot;, which fails to acknowledge that the effect can be small, and that all effects selected for significance are substantially inflated. The Type M error</span> can <span class="ins">also</span> be <span class="del">misleading</span><span class="ins">used to explain the difference between the inferential goals of hypothesis testing and estimation, revealing that tests that reject the null hypothesis inform us about the presence of an effect, but do not provide accurate effect size estimates</span>. <span class="del">This message may resonate</span><span class="ins">In</span> more <span class="del">with students than visualizing power curves</span><span class="ins">advanced courses, instructors may introduce tools for bias detection (e.g., funnel plots, p-curve analysis) or methods to compute bias-adjusted effect size estimates [@stanley_limitations_2017; @simonsohn_p-curve_2014; @vanassen_metaanalysis_2015; @bartos_zcurve_2020]</span>.</span></div>
+<div class="line"><span class="ln">982</span><span class="txt"></span></div>
+<div class="line"><span class="ln">983</span><span class="txt"><span class="del">The concept of a Type M error—or exaggeration ratio—is especially helpful when introducing students to the consequences of publication bias and selective reporting. Even without delving into the mathematical derivation, @fig-effectsize-distribution clearly shows how filtering for significance results in inflated effect size estimates. This can serve as a foundation for teaching the idea that significant effects from underpowered studies are not only uncertain, but often systematically overestimated. The same idea can be taught through the concept of a critical effect size [@perugini_benefits_2025] by illustrating how low power limits which effect sizes can be reliably distinguished from random noise. In follow-up courses, teachers could introduce the exaggeration ratio as a function of the statistical power of the test, and explain the limitations of underpowered studies. The Type M error can also be used to explain the difference between the inferential goals of hypothesis testing and estimation, revealing that tests that reject the null hypothesis inform us about the presence of an effect, but do not provide accurate effect size estimates. In more advanced courses, instructors may introduce tools for bias detection (e.g., funnel plots, p-curve analysis) or methods to compute bias-adjusted effect size estimates [@stanley_limitations_2017; @simonsohn_p-curve_2014; @vanassen_metaanalysis_2015; @bartos_zcurve_2020].</span>When taught properly, the concepts of Type S and M errors can help to bridge the gap between statistical theory and the realities of scientific practice. They offer a narrative that aligns with the goals of open and rigorous science: understanding the risks of false directional claims, exploratory tests without error control, <span class="del">underpowered</span><span class="ins">the limitations of</span> studies <span class="ins">with low power</span>,<span class="del">and</span> bias in the published literature, and emphasizing the value of reporting all research findings, for example through study registries or Registered Reports. Teaching students to think about the inferential claims they can <span class="del">—</span><span class="ins">-</span> and cannot <span class="del">—</span><span class="ins">-</span> make is important to improve their statistical literacy, and will bolster <span class="del">their</span><span class="ins">the</span> critical thinking skills <span class="ins">of students</span> when they read claims in the scientific literature.</span></div>
+<div class="line"><span class="ln">984</span><span class="txt"></span></div>
+<h2>Conclusion</h2>
+<div class="line"><span class="ln">986</span><span class="txt"></span></div>
+<div class="line"><span class="ln">987</span><span class="txt">Gelman and Carlin [-@gelman2014] propose to compute Type S and M errors for planned or performed statistical tests [see also @altoe_enhancing_2020]. However, both for conceptual and practical reasons we see limited value in quantifying Type S errors and the exaggeration ratio (or Type M error) for individual studies. We share the general concern that researchers should design informative studies, and be cautious when interpreting the results from<span class="del">underpowered</span> studies <span class="ins">with low power</span>, especially when combined with selection bias. Type S and Type M errors can be used to create awareness of the limitations of studies where researchers did not follow best practices, and they can play a role in statistics education to improve students' understanding of how uninformative<span class="del">underpowered</span> studies <span class="ins">with low power</span> are. However, we believe there are more useful alternative statistical approaches to address these concerns. Instead of reporting Type S error rates, researchers should perform tests against a range of values considered theoretically or practically equivalent to 0. Instead of reporting Type M errors, researchers should report bias-corrected effect size estimates provided by methods such as *p*-uniform, and report the critical effect size.</span></div>
+<div class="line"><span class="ln">988</span><span class="txt"></span></div>
+<div class="line"><span class="ln">989</span><span class="txt">\newpage</span></div>
+<div class="line"><span class="ln">990</span><span class="txt"></span></div>
+<div class="line"><span class="ln">991</span><span class="txt">#<span class="ins">#</span> References</span></div></body></html>
